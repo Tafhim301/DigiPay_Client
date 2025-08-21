@@ -4,9 +4,10 @@ import { NavMenu } from "./NavMenu";
 import { NavigationSheet } from "./NavigationSheet";
 import { ModeToggle } from "../ModeToggler";
 import { Logo } from "@/assets/Logo";
+import { Link } from "react-router";
 
 const Navbar = () => {
- 
+
   return (
     <div className="min-h-screen w-full bg-muted">
       <nav className="h-16 bg-background border-b">
@@ -15,21 +16,21 @@ const Navbar = () => {
             <Logo />
 
             {/* Desktop Menu */}
-            <NavMenu  className="hidden md:block" />
+            <NavMenu className="hidden md:block" />
           </div>
 
           <div className="flex items-center justify-end gap-3">
-            <Button variant="outline" className="hidden sm:inline-flex">
-              Sign In
-            </Button>
-            <Button>Sign Up</Button>
-           
-             <ModeToggle></ModeToggle>
-       
+
+            <Link to={'/login'}>
+              <Button>Login</Button>
+            </Link>
+
+            <ModeToggle></ModeToggle>
+
 
             {/* Mobile Menu */}
             <div className="md:hidden">
-              <NavigationSheet />
+              <NavigationSheet/>
             </div>
           </div>
         </div>

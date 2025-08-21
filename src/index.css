@@ -1,9 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource/libertinus-sans/400.css"; 
-@import "@fontsource/libertinus-sans/700.css";  
-
-
 
 @custom-variant dark (&:is(.dark *));
 
@@ -48,7 +44,6 @@
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
-   --font-sans: "Libertinus Sans", sans-serif;
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
@@ -83,7 +78,7 @@
 
 .dark {
   --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(100% 0.00011 271.152);
+  --foreground: oklch(0.985 0 0);
   --card: oklch(0.21 0.006 285.885);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.21 0.006 285.885);
@@ -115,15 +110,12 @@
   --sidebar-ring: oklch(0.488 0.243 264.376);
 }
 
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    font-family: var(--font-sans);
   }
+
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans);
-   
   }
 }

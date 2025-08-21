@@ -8,11 +8,11 @@ export const Logo = () => (
         <defs>
           <linearGradient id="gradLightDark" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
 
-            <stop stop-color="#4EF1F3" />
+            <stop stopColor="#4EF1F3" />
 
-            <stop offset="0.6" stop-color="#3B82F6" />
+            <stop offset="0.6" stopColor="#3B82F6" />
 
-            <stop offset="1" stop-color="#1E1B4B" />
+            <stop offset="1" stopColor="#1E1B4B" />
           </linearGradient>
         </defs>
         <path d="M17 0L23 6L0 26V14L17 0Z" fill="url(#gradLightDark)" />

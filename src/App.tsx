@@ -1,6 +1,5 @@
-
 import { Outlet } from 'react-router'
-import Navbar from './components/Navbar/Navbar'
+import CommonLayout from './components/Layout/CommonLayout'
 
 
 function App() {
@@ -8,12 +7,14 @@ function App() {
 
   return (
     <div>
-      <Navbar></Navbar>
 
 
-      <div>
+
+      <CommonLayout>
         <Outlet></Outlet>
-      </div>
+      </CommonLayout>
+
+
     </div>
 
 
