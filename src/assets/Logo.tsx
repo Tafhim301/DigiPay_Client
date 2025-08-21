@@ -1,52 +1,33 @@
 import { Link } from "react-router";
 
 export const Logo = () => (
-  <Link to="/" className="flex items-center gap-1">
-    {/* Logo Icon */}
+  <Link to="/" className="flex items-center gap-2">
+    {/* Icon */}
     <div>
-      {/* Light mode */}
-      <svg
-        className="dark:hidden"
-        width="34"
-        height="40"
-        viewBox="0 0 34 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="gradLight" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#06D1D4" />
-            <stop offset="1" stopColor="#3628A0" />
+          <linearGradient id="gradLightDark" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+
+            <stop stop-color="#4EF1F3" />
+
+            <stop offset="0.6" stop-color="#3B82F6" />
+
+            <stop offset="1" stop-color="#1E1B4B" />
           </linearGradient>
         </defs>
-        <path d="M17 0L23 6L0 26V14L17 0Z" fill="url(#gradLight)" />
-        <path d="M4 28L17 40L34 26V14L23 6L0 26V20L23 6V21L12 31V22L4 28Z" fill="url(#gradLight)" />
+        <path d="M17 0L23 6L0 26V14L17 0Z" fill="url(#gradLightDark)" />
+        <path d="M4 28L17 40L34 26V14L23 6L0 26V20L23 6V21L12 31V22L4 28Z" fill="url(#gradLightDark)" />
       </svg>
 
-      {/* Dark mode */}
-      <svg
-        className="hidden dark:block"
-        width="34"
-        height="40"
-        viewBox="0 0 34 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id="gradDark" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#ffffff" stopOpacity="0.9" />
-            <stop offset="1" stopColor="#bbbbbb" stopOpacity="0.9" />
-          </linearGradient>
-        </defs>
-        <path d="M17 0L23 6L0 26V14L17 0Z" fill="url(#gradDark)" />
-        <path d="M4 28L17 40L34 26V14L23 6L0 26V20L23 6V21L12 31V22L4 28Z" fill="url(#gradDark)" />
-      </svg>
+
+
     </div>
 
-    {/* Logo Text */}
-    <span className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-      <span className="text-primary">Digi</span>
-      <span className="text-indigo-600 dark:text-indigo-400">Pay</span>
+    {/* Gradient Text */}
+    <span className="text-2xl font-extrabold tracking-tight">
+      <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-600 bg-clip-text text-transparent">
+        DigiPay
+      </span>
     </span>
   </Link>
 );

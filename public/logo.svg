@@ -1,0 +1,14 @@
+<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradLightDark" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+      <!-- Start brighter teal -->
+      <stop stop-color="#4EF1F3"/>
+      <!-- Middle with a vivid blue -->
+      <stop offset="0.6" stop-color="#3B82F6"/>
+      <!-- End darker purple/indigo -->
+      <stop offset="1" stop-color="#1E1B4B"/>
+    </linearGradient>
+  </defs>
+  <path d="M17 0L23 6L0 26V14L17 0Z" fill="url(#gradLightDark)" />
+  <path d="M4 28L17 40L34 26V14L23 6L0 26V20L23 6V21L12 31V22L4 28Z" fill="url(#gradLightDark)" />
+</svg>
