@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Logo } from "./logo";
-import { NavMenu } from "./nav-menu";
-import { NavigationSheet } from "./navigation-sheet";
+
+import { NavMenu } from "./NavMenu";
+import { NavigationSheet } from "./NavigationSheet";
 import { ModeToggle } from "../ModeToggler";
+import { Logo } from "@/assets/Logo";
 
 const Navbar = () => {
+ 
   return (
     <div className="min-h-screen w-full bg-muted">
       <nav className="h-16 bg-background border-b">
@@ -13,7 +15,7 @@ const Navbar = () => {
             <Logo />
 
             {/* Desktop Menu */}
-            <NavMenu className="hidden md:block" />
+            <NavMenu  className="hidden md:block" />
           </div>
 
           <div className="flex items-center justify-end gap-3">
