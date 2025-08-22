@@ -4,7 +4,7 @@ import { useId, useState } from "react"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+
 
 export default function PasswordInput({...field}) {
   const id = useId()
@@ -14,7 +14,7 @@ export default function PasswordInput({...field}) {
 
   return (
     <div className="*:not-first:mt-2">
-      <Label htmlFor={id}>Show/hide password input</Label>
+     
       <div className="relative">
         <Input
           id={id}

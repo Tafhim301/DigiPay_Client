@@ -10,19 +10,42 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
+import { useLoginMutation } from "@/redux/feature/Auth/auth.api";
 
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
-import { Link} from "react-router";
+import { Link, useLocation, useNavigate} from "react-router";
+import { toast } from "sonner";
+
+
+
+
 
 
 export function LoginForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+
+  const [login] = useLoginMutation();
+    const navigate = useNavigate();
+    const location = useLocation();
  
   const form = useForm();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data)
+    const toastId = toast.loading('Proccessing')
+   try {
+    const res = await login(data).unwrap()
+    console.log(res);
+    toast.success("login Successful", {id : toastId})
+    navigate(location.state || '/')
+   } catch (error) {
+
+    toast.error("Invalid Credentials",{id : toastId});
+
+    console.log(error)
+
+    
+   }
  
 
 
@@ -41,13 +64,13 @@ export function LoginForm({
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name="email"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Phone</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="john@example.com"
+                      placeholder="01XXXXXXXXXXX"
                       {...field}
                       value={field.value || ""}
                     />
@@ -82,16 +105,11 @@ export function LoginForm({
           </form>
         </Form>
 
-        <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-          <span className="relative z-10 bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
 
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <Link to="/register" replace className="underline underline-offset-4">
+        <Link to="/register" replace className="underline font-bold text-blue-600">
           Register
         </Link>
       </div>

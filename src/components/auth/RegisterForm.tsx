@@ -13,9 +13,14 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import PasswordInput from "../ui/PasswordInput";
 import z from 'zod'
+import { useRegisterMutation } from "@/redux/feature/Auth/auth.api";
+import { toast } from "sonner";
+
+
+
 
 
 
@@ -46,6 +51,9 @@ export default function RegisterForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
 
+  const [register] = useRegisterMutation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
 
@@ -71,7 +79,33 @@ export default function RegisterForm({
 
     };
 
-    console.log(userInfo)
+    const toastId = toast.loading("Proccesssing")
+
+    try {
+
+      const res = await register(userInfo).unwrap();
+      console.log(res);
+      toast.success("User Registration Successful", { id: toastId });
+
+      form.reset();
+
+      if(location.state){
+        navigate(location.state);
+      }
+
+      else {
+        navigate('/')
+      }
+
+
+
+    } catch (error) {
+      console.log(error)
+      toast.error("Sorry an unexpected error occured", { id: toastId })
+
+    }
+
+
 
 
 
@@ -112,12 +146,13 @@ export default function RegisterForm({
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>email</FormLabel>
+                  <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="01712345678" type="" {...field} />
+                    <Input placeholder="01XXXXXXXXX" type="tel" {...field} />
+
                   </FormControl>
                   <FormDescription className="sr-only">
-                    Enter Your Email Address
+                    Enter Your Phone Number
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -128,7 +163,7 @@ export default function RegisterForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>password</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <PasswordInput {...field}></PasswordInput>
                   </FormControl>
@@ -144,7 +179,7 @@ export default function RegisterForm({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>confirm Password</FormLabel>
+                  <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
                     <PasswordInput {...field}></PasswordInput>
                   </FormControl>
@@ -159,7 +194,7 @@ export default function RegisterForm({
 
 
             <Button type="submit" className="w-full">
-              Submit
+              Register
             </Button>
           </form>
         </Form>
@@ -171,7 +206,7 @@ export default function RegisterForm({
 
       <div className="text-center text-sm">
         Already have an account?{" "}
-        <Link to="/login" className="text-blue-400 font-bold hover:underline">
+        <Link to="/login" className="text-blue-600 font-bold underline">
           Login
         </Link>
       </div>
