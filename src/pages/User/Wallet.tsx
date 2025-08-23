@@ -14,10 +14,10 @@ export default function Wallet() {
                     <h1 className="text-3xl font-extrabold text-gray-800 dark:text-gray-100">
                         Hey {user?.name || "User"}!
                     </h1>
-                    {/* Add the new 'animation-waving-hand' utility class here */}
+                  
                     <Hand 
                         size={32} 
-                        className="text-yellow-500 origin-[70%_70%] animate-waving-hand" 
+                        className="text-yellow-700 origin-[70%_70%] waving-hand" 
                     />
                 </div>
                 <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -25,7 +25,7 @@ export default function Wallet() {
                 </p>
             </div>
 
-            {/* Wallet Balance Section */}
+   
             <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center space-x-4">
                     <WalletCards size={42} className="text-primary" />
@@ -33,11 +33,11 @@ export default function Wallet() {
                         <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300">
                             Current Balance
                         </h3>
-                        <div className="flex items-end mt-1">
+                        <div className="flex items-end">
                             <span className="text-3xl font-bold text-primary mr-1">
                                 {wallet?.balance?.toLocaleString() || "0.00"}
                             </span>
-                            <span className="text-xl font-semibold text-primary">৳</span>
+                            <span className="text-2xl font-semibold text-primary">৳</span>
                         </div>
                     </div>
                 </div>

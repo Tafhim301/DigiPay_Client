@@ -1,8 +1,6 @@
 import App from "@/App";
 import DashBoardLayout from "@/components/Layout/DashboardLayout";
-import Home from "@/components/pages/Home/Home";
-import Login from "@/components/pages/Login";
-import Register from "@/components/pages/Register";
+
 import { role } from "@/constant/role";
 import type { TRole } from "@/types";
 import { withAuth } from "@/utils/withAuth";
@@ -12,6 +10,9 @@ import { adminSidebarItems } from "./adminSidebar";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { userSidebarItems } from "./userSidebarItems";
 import { agentSidebarItems } from "./agentSidebarItems";
+import Home from "@/pages/Home/Home";
+import Register from "@/pages/Register";
+import Login from "@/pages/Login";
 
 export const router = createBrowserRouter([
   {

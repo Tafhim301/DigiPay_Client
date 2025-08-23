@@ -14,11 +14,12 @@ import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 
 import { Link, useLocation, useNavigate } from "react-router";
-import PasswordInput from "../ui/PasswordInput";
+
 import z from 'zod'
 import { useRegisterMutation } from "@/redux/feature/Auth/auth.api";
 import { toast } from "sonner";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import PasswordInput from "@/components/ui/PasswordInput";
 
 
 

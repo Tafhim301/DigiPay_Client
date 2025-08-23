@@ -1,10 +1,9 @@
 
-
-import DepositMoney from "@/components/pages/User/Features/DepositMoney";
-import SendMoney from "@/components/pages/User/Features/SendMoney";
-import TransactionHistory from "@/components/pages/User/Features/TransactionHistory";
-import WithdrawMoney from "@/components/pages/User/Features/WithdrawMoney";
-import Wallet from "@/components/pages/User/Wallet";
+import DepositMoney from "@/pages/User/Features/DepositMoney";
+import SendMoney from "@/pages/User/Features/SendMoney";
+import TransactionHistory from "@/pages/User/Features/TransactionHistory";
+import WithdrawMoney from "@/pages/User/Features/WithdrawMoney";
+import Wallet from "@/pages/User/Wallet";
 import type { ISidebarItems } from "@/types";
  
 

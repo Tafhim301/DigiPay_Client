@@ -7,7 +7,7 @@ import {
 import { role } from "@/constant/role";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import { type NavigationMenuProps } from "@radix-ui/react-navigation-menu";
-import { Link } from "react-router";
+import {  NavLink } from "react-router";
 
 const navLinks = [
   { name: "Home", path: "/", role: "PUBLIC" },
@@ -32,7 +32,7 @@ export const NavMenu = (props: NavigationMenuProps) => {
             return (
               <NavigationMenuItem key={index} className="w-full">
                 <NavigationMenuLink asChild className="py-1.5">
-                  <Link to={link.path}>{link.name}</Link>
+                  <NavLink to={link.path}>{link.name}</NavLink>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             );

@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { Logo } from "@/assets/Logo";
 import { Card, CardContent } from "@/components/ui/card";
-import { LoginForm } from "../auth/LoginForm";
 import image from "@/assets/Images/AuthImage.jpg";
+import { LoginForm } from "@/components/modules/auth/LoginForm";
 
 export default function Login() {
   return (
@@ -19,7 +19,7 @@ export default function Login() {
             />
           </CardContent>
 
-          {/* Right Section: Login Form */}
+          
           <CardContent className="flex flex-col justify-center p-16 ">
             <div className="flex justify-center">
               <Link

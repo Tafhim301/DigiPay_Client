@@ -8,6 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import PasswordInput from "@/components/ui/PasswordInput";
 
 import { cn } from "@/lib/utils";
 import { useLoginMutation } from "@/redux/feature/Auth/auth.api";
@@ -87,12 +88,7 @@ export function LoginForm({
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="********"
-                      {...field}
-                      value={field.value || ""}
-                    />
+                   <PasswordInput {...field}></PasswordInput>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

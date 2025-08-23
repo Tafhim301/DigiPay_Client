@@ -17,7 +17,15 @@ export const transactionApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Wallet","User"],
     }),
+    sendMoney: builder.mutation({
+      query: (info) => ({
+        url: "/transaction/send-money",
+        method: "POST",
+        data: info
+      }),
+      invalidatesTags: ["Wallet","User"],
+    }),
   }),
 });
 
-export const { useOwnTransactionQuery, useTopUpMutation } = transactionApi;
+export const { useOwnTransactionQuery, useTopUpMutation ,useSendMoneyMutation} = transactionApi;

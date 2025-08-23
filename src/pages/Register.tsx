@@ -1,8 +1,9 @@
 import { Link } from "react-router";
 import { Logo } from "@/assets/Logo";
-import RegisterForm from "../auth/RegisterForm";
-import { Card, CardContent } from "../ui/card";
+
 import image from "@/assets/Images/AuthImage.jpg";
+import { Card, CardContent } from "@/components/ui/card";
+import RegisterForm from "@/components/modules/auth/RegisterForm";
 
 export default function Register() {
   return (

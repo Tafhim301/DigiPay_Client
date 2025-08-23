@@ -1,5 +1,6 @@
 
-import Home from "@/components/pages/Home/Home";
+
+import Home from "@/pages/Home/Home";
 import type { ISidebarItems } from "@/types";
  
 
