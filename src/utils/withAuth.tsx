@@ -1,5 +1,5 @@
 
-import Loader from "@/components/Loader";
+import DashboardSkeleton from "@/components/Skeletons/DashboardSkeleton";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import type { TRole } from "@/types";
 import type { ComponentType } from "react";
@@ -10,7 +10,7 @@ export const withAuth = (Component: ComponentType, requiredRole?: TRole) => {
         const { data, isLoading } = useUserInfoQuery(undefined);
 
         if (isLoading) {
-            return <Loader></Loader>
+            return <DashboardSkeleton></DashboardSkeleton>
 
 
         }

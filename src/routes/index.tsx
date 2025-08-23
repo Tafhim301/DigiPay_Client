@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
     path: '/user',
 
     children: [{
-      index: true, element: <Navigate to={'/user/transaction'}>
+      index: true, element: <Navigate to={'/user/wallet'}>
 
       </Navigate>
     }, ...generateRoutes(userSidebarItems)]

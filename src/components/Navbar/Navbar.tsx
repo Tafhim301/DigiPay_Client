@@ -6,9 +6,10 @@ import { ModeToggle } from "../ModeToggler";
 import { Logo } from "@/assets/Logo";
 import { Link } from "react-router";
 import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
-import Loader from "../Loader";
 import { toast } from "sonner";
 import { useAppDispatch } from "@/redux/hook";
+import NavbarSkeleton from "../Skeletons/NavbarSkeleton";
+import HeroSkeleton from "../Skeletons/HeroSkeleton";
 
 
 
@@ -23,7 +24,12 @@ const Navbar = () => {
  
 
   if (isLoading) {
-    return <Loader></Loader>
+    return (
+      <div>
+        <NavbarSkeleton></NavbarSkeleton>
+        <HeroSkeleton></HeroSkeleton>
+      </div>
+    )
   }
 
 

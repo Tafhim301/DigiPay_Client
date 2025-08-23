@@ -35,6 +35,14 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags : ["User"]
     }),
+    validatePassword: builder.mutation({
+      query: (password) => ({
+        url: "/user/validate-password",
+        method: "POST",
+        data : password
+      }),
+
+    }),
   }),
 });
 
@@ -45,4 +53,5 @@ export const {
 
   useUserInfoQuery,
   useLogoutMutation,
+  useValidatePasswordMutation
 } = authApi;
