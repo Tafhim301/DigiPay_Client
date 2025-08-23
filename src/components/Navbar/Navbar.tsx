@@ -55,7 +55,7 @@ const Navbar = () => {
           <div className="flex items-center gap-8">
             <Logo />
 
-            {/* Desktop Menu */}
+      
             <NavMenu className="hidden md:block" />
           </div>
 

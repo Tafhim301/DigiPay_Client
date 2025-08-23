@@ -1,34 +1,77 @@
 import App from "@/App";
+import DashBoardLayout from "@/components/Layout/DashboardLayout";
 import Home from "@/components/pages/Home/Home";
 import Login from "@/components/pages/Login";
 import Register from "@/components/pages/Register";
+import { role } from "@/constant/role";
+import type { TRole } from "@/types";
+import { withAuth } from "@/utils/withAuth";
 
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
+import { adminSidebarItems } from "./adminSidebar";
+import { generateRoutes } from "@/utils/generateRoutes";
+import { userSidebarItems } from "./userSidebarItems";
+import { agentSidebarItems } from "./agentSidebarItems";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component : App,
-    children : [
+    Component: App,
+    children: [
 
-      { 
-        
-   
-          path : '/',
-          
-          Component : Home,
-        
-        
+      {
+
+
+        path: '/',
+
+        Component: Home,
+
+
       },
+
 
     ]
   },
+
   {
-    path : '/login',
-    Component : Login
+    Component: withAuth(DashBoardLayout, role.ADMIN as TRole),
+    path: '/admin',
+
+    children: [{
+      index: true, element: <Navigate to={'/admin/analytics'}>
+
+      </Navigate>
+    }, ...generateRoutes(adminSidebarItems)]
+
   },
   {
-    path : '/register',
-    Component : Register
+    Component: withAuth(DashBoardLayout, role.USER as TRole),
+    path: '/user',
+
+    children: [{
+      index: true, element: <Navigate to={'/user/transaction'}>
+
+      </Navigate>
+    }, ...generateRoutes(userSidebarItems)]
+
+  },
+  {
+    Component: withAuth(DashBoardLayout, role.AGENT as TRole),
+    path: '/agent',
+
+    children: [{
+      index: true, element: <Navigate to={'/agent/transactions'}>
+
+      </Navigate>
+    }, ...generateRoutes(agentSidebarItems)]
+
+  },
+  {
+    path: '/login',
+    Component: Login
+  },
+  {
+    path: '/register',
+    Component: Register
   },
 ]);
