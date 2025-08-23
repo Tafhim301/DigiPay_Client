@@ -21,7 +21,7 @@ export default function Login() {
 
           {/* Right Section: Login Form */}
           <CardContent className="flex flex-col justify-center p-16 ">
-            <div className="flex justify-center md:justify-start">
+            <div className="flex justify-center">
               <Link
                 to="/"
                 className="flex items-center gap-2 font-semibold text-lg"

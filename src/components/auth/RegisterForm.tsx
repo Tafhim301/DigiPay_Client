@@ -18,6 +18,7 @@ import PasswordInput from "../ui/PasswordInput";
 import z from 'zod'
 import { useRegisterMutation } from "@/redux/feature/Auth/auth.api";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 
 
@@ -36,8 +37,21 @@ const formSchema = z.object({
     .string()
     .regex(/^01[3-9][0-9]{8}$/, "Please provide a valid Bangladesh phone number"),
 
-  password: z.string().min(8, { message: "Password must be at least 8 characters.", }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" })
+    .refine((val) => /[A-Z]/.test(val), {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .refine((val) => /[^a-zA-Z0-9]/.test(val), {
+      message: "Password must contain at least one special character",
+    })
+    .refine((val) => /\d/.test(val), {
+      message: "Password must contain at least one number",
+    }),
   confirmPassword: z.string(),
+
+  role: z.string()
 
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Password does not match",
@@ -65,6 +79,7 @@ export default function RegisterForm({
       name: "",
       phone: '',
       password: "",
+      role: '',
       confirmPassword: ""
 
     },
@@ -74,6 +89,7 @@ export default function RegisterForm({
     const userInfo = {
       name: data.name,
       phone: data.phone,
+      role: data.role,
       password: data.password,
 
 
@@ -89,7 +105,7 @@ export default function RegisterForm({
 
       form.reset();
 
-      if(location.state){
+      if (location.state) {
         navigate(location.state);
       }
 
@@ -155,6 +171,28 @@ export default function RegisterForm({
                     Enter Your Phone Number
                   </FormDescription>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel>Role</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={"USER"}>
+                    <FormControl className="w-full">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Please select the role you want to register as" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="USER">User</SelectItem>
+                      <SelectItem value="AGENT">Agent</SelectItem>
+
+                    </SelectContent>
+                  </Select>
                 </FormItem>
               )}
             />

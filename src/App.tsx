@@ -2,6 +2,7 @@ import { Outlet } from 'react-router'
 import CommonLayout from './components/Layout/CommonLayout'
 
 
+
 function App() {
 
 
@@ -10,8 +11,13 @@ function App() {
 
 
 
+
+
       <CommonLayout>
-        <Outlet></Outlet>
+        <div className='md:mx-8 mx-2'>
+
+          <Outlet></Outlet>
+        </div>
       </CommonLayout>
 
 

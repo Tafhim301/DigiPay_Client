@@ -10,13 +10,13 @@ import { Toaster } from './components/ui/sonner.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme='system'>
-      <ReduxProvider store={store}>
+    <ReduxProvider store={store}>
+      <ThemeProvider defaultTheme='system'>
         <Toaster />
 
         <RouterProvider router={router} />,
-      </ReduxProvider>
+      </ThemeProvider>
+    </ReduxProvider>
 
-    </ThemeProvider>
   </StrictMode>,
 )

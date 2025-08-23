@@ -3,8 +3,8 @@ import { Logo } from "@/assets/Logo";
 
 export default function Footer() {
   return (
-    <footer className="fix">
-      <div className="mx-auto container px-4 pt-6 pb-0">
+    <footer className="fix mt-20 border-t-2">
+      <div className="mx-auto container px-8 pt-6 pb-0">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <div className="text-foreground">

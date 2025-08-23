@@ -19,7 +19,7 @@ export default function Register() {
           </CardContent>
         
           <CardContent className="flex flex-col justify-center px-4">
-            <div className="flex justify-center md:justify-start">
+            <div className="flex justify-center ">
               <Link to="/" className="flex items-center gap-2 font-semibold text-lg">
                 <Logo />
               </Link>
