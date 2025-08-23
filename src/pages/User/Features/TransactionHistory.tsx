@@ -1,7 +1,8 @@
+import TransactionTable from "@/components/TransactionTable";
 
 
 export default function TransactionHistory() {
   return (
-    <div>TransactionHistory</div>
+    <div><TransactionTable></TransactionTable></div>
   )
 }

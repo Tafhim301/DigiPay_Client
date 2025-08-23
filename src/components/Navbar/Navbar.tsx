@@ -15,6 +15,7 @@ import HeroSkeleton from "../Skeletons/HeroSkeleton";
 
 const Navbar = () => {
   const { data, isLoading } = useUserInfoQuery(undefined)
+ 
   const [logout] = useLogoutMutation();
     const dispatch = useAppDispatch();
 

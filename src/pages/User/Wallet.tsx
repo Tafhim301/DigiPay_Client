@@ -1,3 +1,4 @@
+import TransactionTable from "@/components/TransactionTable";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import { Hand, WalletCards } from "lucide-react";
 
@@ -47,9 +48,7 @@ export default function Wallet() {
             <div className="mt-8">
                 <h2 className="text-2xl font-bold mb-4">Recent Transactions</h2>
                 {/* A list or table of recent transactions will go here */}
-                <div className="p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 h-48 flex items-center justify-center text-gray-500 italic">
-                    Transaction history will be displayed here.
-                </div>
+               <TransactionTable></TransactionTable>
             </div>
         </div>
     );

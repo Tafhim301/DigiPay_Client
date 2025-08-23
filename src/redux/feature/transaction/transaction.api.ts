@@ -15,7 +15,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: topUp
       }),
-      invalidatesTags: ["Wallet","User"],
+      invalidatesTags: ["Wallet","User","Transaction"],
     }),
     sendMoney: builder.mutation({
       query: (info) => ({
@@ -23,7 +23,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: info
       }),
-      invalidatesTags: ["Wallet","User"],
+      invalidatesTags: ["Wallet","User","Transaction"],
     }),
     cashOut: builder.mutation({
       query: (info) => ({
@@ -31,7 +31,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: info
       }),
-      invalidatesTags: ["Wallet","User"],
+      invalidatesTags: ["Wallet","User","Transaction"],
     }),
     withdrawATM: builder.mutation({
       query: (info) => ({
@@ -39,9 +39,17 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: info
       }),
-      invalidatesTags: ["Wallet","User"],
+      invalidatesTags: ["Wallet","User","Transaction"],
+    }),
+    transactions: builder.query({
+      query: (info) => ({
+        url: "/transaction/all-transactions",
+        method: "POST",
+        data: info
+      }),
+      providesTags: ["Transaction"],
     }),
   }),
 });
 
-export const { useOwnTransactionQuery, useTopUpMutation ,useSendMoneyMutation, useCashOutMutation, useWithdrawATMMutation} = transactionApi;
+export const { useOwnTransactionQuery, useTopUpMutation ,useSendMoneyMutation, useCashOutMutation, useWithdrawATMMutation,useTransactionsQuery} = transactionApi;

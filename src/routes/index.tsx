@@ -13,11 +13,15 @@ import { agentSidebarItems } from "./agentSidebarItems";
 import Home from "@/pages/Home/Home";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
+import ErrorPage from "@/components/Error";
 
 export const router = createBrowserRouter([
+ { errorElement: <ErrorPage></ErrorPage>},
   {
     path: "/",
     Component: App,
+
+
     children: [
 
       {
@@ -75,4 +79,5 @@ export const router = createBrowserRouter([
     path: '/register',
     Component: Register
   },
+
 ]);
