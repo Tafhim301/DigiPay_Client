@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-import { useSendMoneyMutation} from "@/redux/feature/transaction/transaction.api";
+import { useCashOutMutation} from "@/redux/feature/transaction/transaction.api";
 import { useValidatePasswordMutation } from "@/redux/feature/Auth/auth.api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
@@ -51,7 +51,7 @@ export default function CashOutForm() {
     },
   });
 
-  const [sendMoney, { isLoading: topUpLoading }] = useSendMoneyMutation();
+  const [cashout, { isLoading: topUpLoading }] = useCashOutMutation();
   const [validatePassword] = useValidatePasswordMutation();
 
   const onSubmit = async (data: TopUpFormValues) => {
@@ -63,7 +63,7 @@ export default function CashOutForm() {
       }).unwrap();
 
       if (passwordValidation.success) {
-        const res = await sendMoney({receiver : data.receiver, amount: data.amount }).unwrap();
+        const res = await cashout({receiver : data.receiver, amount: data.amount }).unwrap();
         console.log(res);
 
         dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
@@ -93,10 +93,10 @@ export default function CashOutForm() {
           <Logo></Logo>
         </div>
         <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
-          Top Up
+          Cash Out
         </h1>
         <p className="text-center text-muted-foreground mt-2">
-          Add money to your account securely.
+         Cash out and take your money In hand. Some real world fun!
         </p>
       </div>
 
@@ -109,7 +109,7 @@ export default function CashOutForm() {
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter Receipent Phone Number" type="tel" {...field} />
+                    <Input placeholder="Enter agent Phone Number" type="tel" {...field} />
 
                   </FormControl>
                   <FormMessage />

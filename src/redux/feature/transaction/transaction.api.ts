@@ -25,7 +25,23 @@ export const transactionApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Wallet","User"],
     }),
+    cashOut: builder.mutation({
+      query: (info) => ({
+        url: "/transaction/cash-out",
+        method: "POST",
+        data: info
+      }),
+      invalidatesTags: ["Wallet","User"],
+    }),
+    withdrawATM: builder.mutation({
+      query: (info) => ({
+        url: "/transaction/withdraw-money",
+        method: "POST",
+        data: info
+      }),
+      invalidatesTags: ["Wallet","User"],
+    }),
   }),
 });
 
-export const { useOwnTransactionQuery, useTopUpMutation ,useSendMoneyMutation} = transactionApi;
+export const { useOwnTransactionQuery, useTopUpMutation ,useSendMoneyMutation, useCashOutMutation, useWithdrawATMMutation} = transactionApi;

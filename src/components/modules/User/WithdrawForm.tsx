@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-import { useSendMoneyMutation} from "@/redux/feature/transaction/transaction.api";
+import {  useWithdrawATMMutation} from "@/redux/feature/transaction/transaction.api";
 import { useValidatePasswordMutation } from "@/redux/feature/Auth/auth.api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
@@ -24,10 +24,9 @@ import { Loader2 } from "lucide-react";
 
 
 
+
 const formSchema = z.object({
-  receiver: z
-    .string()
-    .regex(/^01[3-9][0-9]{8}$/, "Please provide a valid Bangladesh phone number"),
+ 
   amount: z
     .number({
       error: "Amount must be a number",
@@ -45,13 +44,13 @@ export default function WithdrawMoneyForm() {
   const form = useForm<TopUpFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      receiver: '',
+      
       amount: undefined,
       password: "",
     },
   });
-
-  const [sendMoney, { isLoading: topUpLoading }] = useSendMoneyMutation();
+ 
+  const [Withdraw, { isLoading: topUpLoading }] = useWithdrawATMMutation();
   const [validatePassword] = useValidatePasswordMutation();
 
   const onSubmit = async (data: TopUpFormValues) => {
@@ -63,7 +62,7 @@ export default function WithdrawMoneyForm() {
       }).unwrap();
 
       if (passwordValidation.success) {
-        const res = await sendMoney({receiver : data.receiver, amount: data.amount }).unwrap();
+        const res = await Withdraw({amount: data.amount }).unwrap();
         console.log(res);
 
         dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
@@ -87,35 +86,23 @@ export default function WithdrawMoneyForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto border-t mt-12 p-8 bg-card rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl">
+    <div className="max-w-full mx-auto border-t mt-12 p-8 bg-card rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl">
+ 
       <div className="flex flex-col items-center gap-2 justify-center mb-6">
         <div className="mr-12">
           <Logo></Logo>
         </div>
         <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
-          Top Up
+          Withdraw Money
         </h1>
         <p className="text-center text-muted-foreground mt-2">
-          Add money to your account securely.
+          Enter Amount Sync With ATM.<br/> Then just chill for a while
         </p>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-              control={form.control}
-              name="receiver"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter Receipent Phone Number" type="tel" {...field} />
-
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+     
           <FormField
             control={form.control}
             name="amount"

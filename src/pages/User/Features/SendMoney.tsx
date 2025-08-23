@@ -93,10 +93,10 @@ export default function SendMoney() {
           <Logo></Logo>
         </div>
         <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
-          Top Up
+          Send Money
         </h1>
         <p className="text-center text-muted-foreground mt-2">
-          Add money to your account securely.
+          Send Money to another user account.
         </p>
       </div>
 
