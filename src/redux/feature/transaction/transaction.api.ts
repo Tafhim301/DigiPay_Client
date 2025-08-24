@@ -6,7 +6,7 @@ export const transactionApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: "/transaction/own-transactions",
         method: "GET",
-        params
+        params,
       }),
       providesTags: ["Transaction"],
     }),
@@ -14,43 +14,67 @@ export const transactionApi = baseApi.injectEndpoints({
       query: (topUp) => ({
         url: "/transaction/top-up",
         method: "POST",
-        data: topUp
+        data: topUp,
       }),
-      invalidatesTags: ["Wallet","User","Transaction"],
+      invalidatesTags: ["Wallet", "User", "Transaction"],
     }),
     sendMoney: builder.mutation({
       query: (info) => ({
         url: "/transaction/send-money",
         method: "POST",
-        data: info
+        data: info,
       }),
-      invalidatesTags: ["Wallet","User","Transaction"],
+      invalidatesTags: ["Wallet", "User", "Transaction"],
     }),
     cashOut: builder.mutation({
       query: (info) => ({
         url: "/transaction/cash-out",
         method: "POST",
-        data: info
+        data: info,
       }),
-      invalidatesTags: ["Wallet","User","Transaction"],
+      invalidatesTags: ["Wallet", "User", "Transaction"],
     }),
     withdrawATM: builder.mutation({
       query: (info) => ({
         url: "/transaction/withdraw-money",
         method: "POST",
-        data: info
+        data: info,
       }),
-      invalidatesTags: ["Wallet","User","Transaction"],
+      invalidatesTags: ["Wallet", "User", "Transaction"],
     }),
     transactions: builder.query({
       query: () => ({
         url: "/transaction/all-transactions",
         method: "GET",
-      
       }),
       providesTags: ["Transaction"],
+    }),
+    cashIn: builder.mutation({
+      query: (info) => ({
+        url: "/transaction/cash-in",
+        method: "POST",
+        data: info,
+      }),
+      invalidatesTags: ["Wallet", "User", "Transaction"],
+    }),
+    cashOutByAgent: builder.mutation({
+      query: (info) => ({
+        url: "/transaction/cash-out-by-agent",
+        method: "POST",
+        data: info,
+      }),
+      invalidatesTags: ["Wallet", "User", "Transaction"],
     }),
   }),
 });
 
-export const { useOwnTransactionQuery, useTopUpMutation ,useSendMoneyMutation, useCashOutMutation, useWithdrawATMMutation,useTransactionsQuery} = transactionApi;
+export const {
+  useOwnTransactionQuery,
+  useTopUpMutation,
+  useSendMoneyMutation,
+  useCashOutMutation,
+  useWithdrawATMMutation,
+  useTransactionsQuery,
+  useCashInMutation,
+  useCashOutByAgentMutation
+} = transactionApi;

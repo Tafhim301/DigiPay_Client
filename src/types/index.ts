@@ -8,6 +8,7 @@ export interface ISidebarItems {
     title: string;
     url: string;
     Component: () => ReactNode | JSX.Element;
+    icon ?: JSX.Element
   }[];
 }
 

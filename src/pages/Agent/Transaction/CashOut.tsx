@@ -12,8 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-import { useCashOutMutation} from "@/redux/feature/transaction/transaction.api";
-import { useValidatePasswordMutation } from "@/redux/feature/Auth/auth.api";
+import { useCashOutByAgentMutation } from "@/redux/feature/transaction/transaction.api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { walletApi } from "@/redux/feature/wallet/wallet.api";
@@ -21,68 +20,59 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import { Logo } from "@/assets/Logo";
 import { Loader2 } from "lucide-react";
 
-
-
-
 const formSchema = z.object({
-  receiver: z
+  userPhone: z
     .string()
     .regex(/^01[3-9][0-9]{8}$/, "Please provide a valid Bangladesh phone number"),
   amount: z
-    .number({
-      error: "Amount must be a number",
-    })
+    .number({error : "Amount must be a number"})
     .min(1, "Amount must be a positive number"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  userPassword: z.string().min(6, "User password must be at least 6 characters"),
+  agentPassword: z.string().min(6, "Agent password must be at least 6 characters"),
 });
 
-type TopUpFormValues = z.infer<typeof formSchema>;
+type CashOutFormValues = z.infer<typeof formSchema>;
 
-export default function CashOutForm() {
+export default function CashOutByAgent() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const form = useForm<TopUpFormValues>({
+  const form = useForm<CashOutFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      receiver: '',
+      userPhone: "",
       amount: undefined,
-      password: "",
+      userPassword: "",
+      agentPassword: "",
     },
   });
 
-  const [cashout, { isLoading: topUpLoading }] = useCashOutMutation();
-  const [validatePassword] = useValidatePasswordMutation();
+  const [cashOutByAgent, { isLoading }] = useCashOutByAgentMutation();
 
-  const onSubmit = async (data: TopUpFormValues) => {
-    const toastId = toast.loading("Processing");
+  const onSubmit = async (data: CashOutFormValues) => {
+    const toastId = toast.loading("Processing cash out...");
 
     try {
-      const passwordValidation = await validatePassword({
-        password: data.password,
+      const res = await cashOutByAgent({
+        userPhone: data.userPhone,
+        userPassword: data.userPassword,
+        agentPassword: data.agentPassword,
+        amount: data.amount,
       }).unwrap();
 
-      if (passwordValidation.success) {
-        const res = await cashout({receiver : data.receiver, amount: data.amount }).unwrap();
-        console.log(res);
+      console.log(res);
 
-        dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
+      dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
 
-        toast.success("Send Money Successful", { id: toastId });
-        navigate("/user/wallet");
-      }
-
+      toast.success("Cash Out Successful", { id: toastId });
+      navigate("/agent/dashboard");
       form.reset();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err?.data?.message === "Password doesn't Match") {
-        toast.error("Incorrect Password", { id: toastId });
-
-        form.reset({ password: "" });
-      } else {
-         toast.error(`${err?.data?.message}` || "Something Went Wrong", { id: toastId });
-        console.log(err);
-      }
+      toast.error(`${err?.data?.message}` || "Something went wrong", {
+        id: toastId,
+      });
+      console.log(err);
     }
   };
 
@@ -90,32 +80,36 @@ export default function CashOutForm() {
     <div className="max-w-md mx-auto border-t mt-12 p-8 bg-card rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl">
       <div className="flex flex-col items-center gap-2 justify-center mb-6">
         <div className="mr-12">
-          <Logo></Logo>
+          <Logo />
         </div>
         <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
           Cash Out
         </h1>
         <p className="text-center text-muted-foreground mt-2">
-         Cash out and take your money In hand. Some real world fun!
+          Withdraw money from a user account via your agent account.
         </p>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-              control={form.control}
-              name="receiver"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter agent Phone Number" type="tel" {...field} />
+          <FormField
+            control={form.control}
+            name="userPhone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>User Phone</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter User Phone Number"
+                    type="tel"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           <FormField
             control={form.control}
             name="amount"
@@ -127,9 +121,9 @@ export default function CashOutForm() {
                     placeholder="Enter Amount"
                     type="number"
                     {...field}
-
                     onChange={(e) => {
-                      const value = e.target.value === "" ? undefined : Number(e.target.value);
+                      const value =
+                        e.target.value === "" ? undefined : Number(e.target.value);
                       field.onChange(value);
                     }}
                     value={field.value === undefined ? "" : field.value}
@@ -139,25 +133,41 @@ export default function CashOutForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
-            name="password"
+            name="userPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>User Password</FormLabel>
                 <FormControl>
-                  <PasswordInput placeholder="Enter your password" {...field} />
+                  <PasswordInput placeholder="Enter User Password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="agentPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Agent Password</FormLabel>
+                <FormControl>
+                  <PasswordInput placeholder="Enter Agent Password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button
             className="w-full text-white bg-primary hover:bg-primary/90 transition-colors duration-200"
-            disabled={topUpLoading}
+            disabled={isLoading}
             type="submit"
           >
-            {topUpLoading ? (
+            {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Processing...

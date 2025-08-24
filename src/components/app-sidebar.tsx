@@ -41,7 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
+      
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
@@ -50,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <NavLink className={location.pathname === item.url ? "border bg-muted" : ""} to={item.url}>{item.title}</NavLink>
+                      <NavLink className={location.pathname === item.url ? "border bg-muted" : ""} to={item.url}>{item.icon}{item.title}</NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

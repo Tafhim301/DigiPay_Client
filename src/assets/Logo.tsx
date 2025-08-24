@@ -1,10 +1,10 @@
 import { Link } from "react-router";
 
 export const Logo = () => (
-  <Link to="/" className="flex items-center gap-2">
+  <Link to="/" className="flex items-center gap-1">
     {/* Icon */}
     <div>
-      <svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="34" height="38" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="gradLightDark" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
 

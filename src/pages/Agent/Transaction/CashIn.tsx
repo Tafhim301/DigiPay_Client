@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-import { useCashOutMutation} from "@/redux/feature/transaction/transaction.api";
+import { useCashInMutation} from "@/redux/feature/transaction/transaction.api";
 import { useValidatePasswordMutation } from "@/redux/feature/Auth/auth.api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
@@ -38,7 +38,7 @@ const formSchema = z.object({
 
 type TopUpFormValues = z.infer<typeof formSchema>;
 
-export default function CashOutForm() {
+export default function CashIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ export default function CashOutForm() {
     },
   });
 
-  const [cashout, { isLoading: topUpLoading }] = useCashOutMutation();
+  const [CashIn, { isLoading: topUpLoading }] = useCashInMutation();
   const [validatePassword] = useValidatePasswordMutation();
 
   const onSubmit = async (data: TopUpFormValues) => {
@@ -63,13 +63,13 @@ export default function CashOutForm() {
       }).unwrap();
 
       if (passwordValidation.success) {
-        const res = await cashout({receiver : data.receiver, amount: data.amount }).unwrap();
+        const res = await CashIn({receiver : data.receiver, amount: data.amount }).unwrap();
         console.log(res);
 
         dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
 
         toast.success("Send Money Successful", { id: toastId });
-        navigate("/user/wallet");
+        navigate("/agent/dashboard");
       }
 
       form.reset();
@@ -80,7 +80,7 @@ export default function CashOutForm() {
 
         form.reset({ password: "" });
       } else {
-         toast.error(`${err?.data?.message}` || "Something Went Wrong", { id: toastId });
+        toast.error(`${err?.data?.message}` || "Something Went Wrong", { id: toastId });
         console.log(err);
       }
     }
@@ -93,10 +93,10 @@ export default function CashOutForm() {
           <Logo></Logo>
         </div>
         <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
-          Cash Out
+          Cash In
         </h1>
         <p className="text-center text-muted-foreground mt-2">
-         Cash out and take your money In hand. Some real world fun!
+         Cash In to a user account. A taste of some real cash!
         </p>
       </div>
 
@@ -109,7 +109,7 @@ export default function CashOutForm() {
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter agent Phone Number" type="tel" {...field} />
+                    <Input placeholder="Enter user Phone Number" type="tel" {...field} />
 
                   </FormControl>
                   <FormMessage />

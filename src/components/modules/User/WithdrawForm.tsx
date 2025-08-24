@@ -79,7 +79,7 @@ export default function WithdrawMoneyForm() {
 
         form.reset({ password: "" });
       } else {
-        toast.error(`${err?.data?.message}`, { id: toastId });
+        toast.error(`${err?.data?.message}` || "Something Went Wrong", { id: toastId });
         console.log(err);
       }
     }
