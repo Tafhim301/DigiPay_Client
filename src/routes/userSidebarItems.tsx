@@ -14,12 +14,26 @@ export const userSidebarItems : ISidebarItems[]   =
             title: "Wallet",
             items: [
                 {
-                    title: "Overview",
+                    title: "Manage Wallet",
                     url: "/user/wallet",
                     Component: Wallet
 
                 },
                
+            ],
+        },
+        {
+            title: "Profile",
+            items: [
+                {
+                    title: "Profile Management",
+                    url: "/user/profile",
+                    Component: DepositMoney
+                    
+                },
+     
+
+
             ],
         },
         {

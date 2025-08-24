@@ -15,14 +15,15 @@ import {
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api"
 import { getSidebarItems } from "@/utils/getSidebarItems"
 import { Logo } from "@/assets/Logo"
-import { Link } from "react-router"
+import { NavLink, useLocation } from "react-router"
 import { ModeToggle } from "./ModeToggler"
 
 
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: userData } = useUserInfoQuery(undefined)
+  const { data: userData } = useUserInfoQuery(undefined);
+  const location = useLocation()
   const data = {
 
     navMain: getSidebarItems(userData?.data?.role)
@@ -49,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link to={item.url}>{item.title}</Link>
+                      <NavLink className={location.pathname === item.url ? "border bg-muted" : ""} to={item.url}>{item.title}</NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

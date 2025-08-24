@@ -1,4 +1,12 @@
 import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
+import {
     Table,
     TableBody,
     TableCaption,
@@ -21,6 +29,8 @@ import {
 import { useOwnTransactionQuery } from "@/redux/feature/transaction/transaction.api";
 import SkeletonTable from "./Skeletons/TableSkeletons";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 
 interface IUserRef {
     _id: string;
@@ -57,10 +67,23 @@ const getTransactionIcon = (type: ITransaction['transactionType']) => {
 };
 
 export default function TransactionTable() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [limit,setlimit] = useState(10)
+    const location = useLocation();
     const { data: userData, isLoading: userLoading } = useUserInfoQuery(undefined)
     const currentUserId = userData?.data?._id
-    const { data, isLoading } = useOwnTransactionQuery(undefined);
+    const { data, isLoading } = useOwnTransactionQuery({page:currentPage,limit});
     const transactions: ITransaction[] = data?.data?.data || [];
+    const { totalPage } = data?.data?.meta || 1
+    useEffect(() => {
+        if(location.pathname === "/user/wallet"){
+            setlimit(5)
+        }
+
+    },[location.pathname,limit])
+
+
+
 
     if (isLoading || userLoading) {
         return <SkeletonTable />;
@@ -89,7 +112,7 @@ export default function TransactionTable() {
                 </CardHeader>
                 <CardContent>
                     <Table>
-                        <TableCaption>A list of your recent transactions.</TableCaption>
+                        <TableCaption></TableCaption>
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Type</TableHead>
@@ -126,13 +149,13 @@ export default function TransactionTable() {
 
 
                                         <TableCell className={`font-bold text-right ${amountColor}`}>
-                                           <Badge variant={"outline"} className={`w-18 p-2  text-md font-bold  text-right ${amountColor}`}> {amountSign}{tx.amount.toFixed(2)} ৳</Badge>
+                                            <Badge variant={"outline"} className={`w-18 p-2  text-md font-bold  text-right ${amountColor}`}> {amountSign}{tx.amount.toFixed(2)} ৳</Badge>
                                         </TableCell>
 
 
                                         <TableCell className="text-right">
                                             <Badge
-                                            className="p-2 font-bold"
+                                                className="p-2 font-bold bg-blue-700"
 
                                                 variant={
                                                     tx.status === "SUCCESSFUL" ? "default" : "destructive"
@@ -151,8 +174,36 @@ export default function TransactionTable() {
                             })}
                         </TableBody>
                     </Table>
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <PaginationPrevious onClick={() => setCurrentPage((prev: number) => prev - 1)}
+
+                                    className={
+                                        currentPage === 1
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
+                                    } />
+                            </PaginationItem>
+                            {Array.from({ length: totalPage }, (_, idx) => idx + 1
+                            ).map((value) => (< PaginationItem key={value} onClick={() => setCurrentPage(value)}>
+                                <PaginationLink isActive={currentPage === value}>{value}</PaginationLink>
+                            </PaginationItem>))
+                            }
+
+
+                            <PaginationItem>
+                                <PaginationNext onClick={() => setCurrentPage((prev: number) => prev + 1)}
+                                    className={
+                                        currentPage === totalPage
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
+                                    } />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
                 </CardContent>
             </Card>
-        </div>
+        </div >
     );
 }

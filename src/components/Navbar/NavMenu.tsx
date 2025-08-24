@@ -7,7 +7,7 @@ import {
 import { role } from "@/constant/role";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import { type NavigationMenuProps } from "@radix-ui/react-navigation-menu";
-import {  NavLink } from "react-router";
+import {  NavLink, useLocation } from "react-router";
 
 const navLinks = [
   { name: "Home", path: "/", role: "PUBLIC" },
@@ -21,6 +21,7 @@ const navLinks = [
 
 export const NavMenu = (props: NavigationMenuProps) => {
   const { data } = useUserInfoQuery(undefined);
+  const location = useLocation();
 
   return (
     <NavigationMenu {...props}>
@@ -30,7 +31,7 @@ export const NavMenu = (props: NavigationMenuProps) => {
 
           if (link.role === "PUBLIC" || link.role === userRole) {
             return (
-              <NavigationMenuItem key={index} className="w-full">
+              <NavigationMenuItem className={location.pathname === link.path ? "border bg-muted rounded-lg w-full px-2" : ""} key={index}>
                 <NavigationMenuLink asChild className="py-1.5">
                   <NavLink to={link.path}>{link.name}</NavLink>
                 </NavigationMenuLink>

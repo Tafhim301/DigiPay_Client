@@ -1,6 +1,6 @@
-import TransactionTable from "@/components/TransactionTable";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import { Hand, WalletCards } from "lucide-react";
+import TransactionHistory from "./Features/TransactionHistory";
 
 export default function Wallet() {
     const { data } = useUserInfoQuery(undefined);
@@ -44,11 +44,11 @@ export default function Wallet() {
                 </div>
             </div>
 
-            {/* Placeholder for Recent Transactions and other components */}
             <div className="mt-8">
                 <h2 className="text-2xl font-bold mb-4">Recent Transactions</h2>
-                {/* A list or table of recent transactions will go here */}
-               <TransactionTable></TransactionTable>
+     
+                    <TransactionHistory></TransactionHistory>
+                
             </div>
         </div>
     );
