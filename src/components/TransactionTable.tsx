@@ -56,7 +56,7 @@ const getTransactionIcon = (type: ITransaction['transactionType']) => {
         case "SEND_MONEY":
         case "CASH_OUT":
         case "WITHDRAW":
-            return <Send className="h-5 w-5 text-red-500" />;
+            return <Send className={"h-5 w-5 text-red-500"} />;
         case "CASH_IN":
         case "TOP_UP":
         case "ADMIN_CASH_IN":
@@ -68,19 +68,25 @@ const getTransactionIcon = (type: ITransaction['transactionType']) => {
 
 export default function TransactionTable() {
     const [currentPage, setCurrentPage] = useState(1);
-    const [limit,setlimit] = useState(10)
+    const [limit, setlimit] = useState(10)
     const location = useLocation();
     const { data: userData, isLoading: userLoading } = useUserInfoQuery(undefined)
     const currentUserId = userData?.data?._id
-    const { data, isLoading } = useOwnTransactionQuery({page:currentPage,limit});
+    const { data, isLoading } = useOwnTransactionQuery({ page: currentPage, limit });
     const transactions: ITransaction[] = data?.data?.data || [];
     const { totalPage } = data?.data?.meta || 1
     useEffect(() => {
-        if(location.pathname === "/user/wallet"){
+        if (location.pathname === "/user/wallet") {
+
             setlimit(5)
         }
 
-    },[location.pathname,limit])
+        else if (location.pathname === "/agent/overview") {
+            setlimit(5)
+         
+        }
+
+    }, [location.pathname, limit])
 
 
 

@@ -65,7 +65,7 @@ export default function CashOutByAgent() {
       dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
 
       toast.success("Cash Out Successful", { id: toastId });
-      navigate("/agent/dashboard");
+      navigate("/agent/overview");
       form.reset();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

@@ -69,7 +69,7 @@ export default function CashIn() {
         dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
 
         toast.success("Send Money Successful", { id: toastId });
-        navigate("/agent/dashboard");
+        navigate("/agent/overview");
       }
 
       form.reset();

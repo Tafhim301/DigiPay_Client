@@ -50,21 +50,35 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import PasswordInput from "@/components/ui/PasswordInput";
+import { useState } from "react";
 
 const updateSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   phone: z
     .string()
     .regex(/^(\+8801|01)[3-9]\d{8}$/, "Invalid Bangladeshi phone number"),
+  newPassword: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" })
+    .refine((val) => /[A-Z]/.test(val), {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .refine((val) => /[^a-zA-Z0-9]/.test(val), {
+      message: "Password must contain at least one special character",
+    })
+    .refine((val) => /\d/.test(val), {
+      message: "Password must contain at least one number",
+    }),
   password: z.string().min(6, "Password is required for confirmation"),
 });
 
 type UpdateFormData = z.infer<typeof updateSchema>;
 
 export default function Profile() {
+  const [open,setOpen] = useState(false)
   const { data, isLoading } = useUserInfoQuery(undefined);
-  const [updateUser] = useUpdateProfileMutation();     
-  const [validatePassword] = useValidatePasswordMutation();     
+  const [updateUser] = useUpdateProfileMutation();
+  const [validatePassword] = useValidatePasswordMutation();
   const user = data?.data;
 
   const form = useForm<UpdateFormData>({
@@ -72,6 +86,7 @@ export default function Profile() {
     defaultValues: {
       name: user?.name || "",
       phone: user?.phone || "",
+      newPassword: '',
       password: "",
     },
   });
@@ -80,32 +95,33 @@ export default function Profile() {
     console.log(values)
     const toastId = toast.loading("Processing...");
     try {
-      const validatePasswordReq = await validatePassword({password : values.password})
-      if(validatePasswordReq?.data?.success){
-         try {
-             await updateUser({name : values?.name , phone : values?.phone}).unwrap();
+      const validatePasswordReq = await validatePassword({ password: values.password })
+      if (validatePasswordReq?.data?.success) {
+        try {
+          await updateUser({ name: values?.name, phone: values?.phone  , password : values?.newPassword }).unwrap();
           toast.success("Profile updated successfully!", { id: toastId });
-         
-         } catch (error) {
-            console.log(error)
-            toast.error("Something went wrong", {
-        id: toastId,
-      })
-            
-         }
+          setOpen(false)
+
+        } catch (error) {
+          console.log(error)
+          toast.error("Something went wrong", {
+            id: toastId,
+          })
+
+        }
 
       }
-      else if(validatePasswordReq?.error?.data?.message){
-         toast.error(validatePasswordReq?.error?.data?.message || "Something went wrong", {
-        id: toastId,
-      });
+      else if (validatePasswordReq?.error?.data?.message) {
+        toast.error(validatePasswordReq?.error?.data?.message || "Something went wrong", {
+          id: toastId,
+        });
       }
 
- 
-   
+
+
 
     } catch (error: any) {
-    console.log(error)
+      console.log(error)
       toast.error(error?.data?.message || "Something went wrong", {
         id: toastId,
       });
@@ -118,7 +134,7 @@ export default function Profile() {
 
   return (
     <div className="space-y-8 p-4 md:p-8">
-  
+
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-2">
           <div>
@@ -138,7 +154,7 @@ export default function Profile() {
         </Button>
       </div>
 
-     
+
       <Card className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border-gray-200 dark:border-gray-700">
         <CardHeader className="flex flex-col items-center justify-center p-6">
           <Avatar className="h-28 w-28 border-4 border-blue-600 shadow-sm mb-4">
@@ -209,11 +225,11 @@ export default function Profile() {
 
         <Separator />
 
-       
+
         <div className="flex justify-center p-6">
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button className="w-full h-10 bg-gradient-to-r from-blue-600  to-indigo-800 text-white hover:opacity-90">
+              <Button onClick={() => setOpen(true)} className="w-full h-10 bg-gradient-to-r from-blue-600  to-indigo-800 text-white hover:opacity-90">
                 <Edit className="h-5 w-5 mr-2" /> Edit Profile
               </Button>
             </DialogTrigger>
@@ -225,7 +241,7 @@ export default function Profile() {
                 </DialogDescription>
               </DialogHeader>
 
-           
+
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                   <FormField
@@ -258,12 +274,25 @@ export default function Profile() {
 
                   <FormField
                     control={form.control}
+                    name="newPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>New Password</FormLabel>
+                        <FormControl>
+                          <PasswordInput placeholder="Enter your password" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
                     name="password"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Confirm with Password</FormLabel>
                         <FormControl>
-                          <PasswordInput  placeholder="Enter your password" {...field} />
+                          <PasswordInput placeholder="Enter your password" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

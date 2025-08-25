@@ -14,9 +14,9 @@ const navLinks = [
   { name: "Blog", path: "/blog", role: "PUBLIC" },
   { name: "About", path: "/about", role: "PUBLIC" },
   { name: "Contact", path: "/contact", role: "PUBLIC" },
-  { name: "Dashboard", path: "/admin", role: role.ADMIN },
+  { name: "Admin Dashboard", path: "/admin", role: role.ADMIN },
   { name: "Dashboard", path: "/user", role: role.USER },
-  { name: "Dashboard", path: "/agent", role: role.AGENT },
+  { name: "Agent Dashboard", path: "/agent", role: role.AGENT },
 ];
 
 export const NavMenu = (props: NavigationMenuProps) => {
@@ -31,7 +31,7 @@ export const NavMenu = (props: NavigationMenuProps) => {
 
           if (link.role === "PUBLIC" || link.role === userRole) {
             return (
-              <NavigationMenuItem className={location.pathname === link.path ? "border bg-muted rounded-lg w-full px-2" : ""} key={index}>
+              <NavigationMenuItem className={location.pathname === link.path ? "border bg-muted rounded-lg  px-2" : ""} key={index}>
                 <NavigationMenuLink asChild className="py-1.5">
                   <NavLink to={link.path}>{link.name}</NavLink>
                 </NavigationMenuLink>

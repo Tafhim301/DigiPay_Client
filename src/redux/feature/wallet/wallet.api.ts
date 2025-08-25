@@ -9,7 +9,14 @@ export const walletApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Wallet"],
     }),
+    GetWalletSummary: builder.query({
+      query: () => ({
+        url: "/wallet/wallet-summary",
+        method: "GET",
+      }),
+      providesTags: ["Wallet"],
+    }),
   }),
 });
 
-export const { useUserWalletQuery } = walletApi;
+export const { useUserWalletQuery, useGetWalletSummaryQuery } = walletApi;

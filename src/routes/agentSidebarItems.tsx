@@ -1,8 +1,9 @@
 
 
+import Overview from "@/pages/Agent/Overview/Overview";
 import CashIn from "@/pages/Agent/Transaction/CashIn";
 import CashOutByAgent from "@/pages/Agent/Transaction/CashOut";
-import Home from "@/pages/Home/Home";
+import TransactionHistory from "@/pages/Agent/Transaction/TransactionHistory"; 
 import Profile from "@/pages/User/Profile";
 import type { ISidebarItems } from "@/types";
  
@@ -10,6 +11,21 @@ import type { ISidebarItems } from "@/types";
 
 export const agentSidebarItems : ISidebarItems[]   = 
     [
+        {
+            title: "Wallet",
+            items: [
+                {
+                    title: "Overview",
+                    url: "/agent/overview",
+                    Component: Overview
+
+                },
+                
+                
+
+            ],
+        },
+      
         {
             title: "Transaction",
             items: [
@@ -25,6 +41,12 @@ export const agentSidebarItems : ISidebarItems[]   =
                     Component: CashOutByAgent
 
                 },
+                {
+                    title: "Transaction Histrory",
+                    url: "/agent/transactionHistory",
+                    Component: TransactionHistory
+
+                },
 
 
             ],
@@ -33,12 +55,7 @@ export const agentSidebarItems : ISidebarItems[]   =
         {
             title: "Profile",
             items: [
-                {
-                    title: "Transaction",
-                    url: "/agent/transactions",
-                    Component: Home
-
-                },
+               
                 {
                     title: "Manage Profie",
                     url: "/agent/profile",

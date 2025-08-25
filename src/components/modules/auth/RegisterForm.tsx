@@ -80,8 +80,8 @@ export default function RegisterForm({
       name: "",
       phone: '',
       password: "",
-      role: '',
-      confirmPassword: ""
+      confirmPassword: "",
+      role: "USER",
 
     },
   })
@@ -95,6 +95,7 @@ export default function RegisterForm({
 
 
     };
+
 
     const toastId = toast.loading("Proccesssing")
 
@@ -190,7 +191,7 @@ export default function RegisterForm({
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="USER">User</SelectItem>
-                      <SelectItem value="AGENT">Agent</SelectItem>
+                      <SelectItem value="AGENT" >Agent</SelectItem>
 
                     </SelectContent>
                   </Select>

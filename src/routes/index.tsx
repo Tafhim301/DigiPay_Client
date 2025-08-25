@@ -14,6 +14,7 @@ import Home from "@/pages/Home/Home";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import ErrorPage from "@/components/Error";
+import Unauthorized from "@/pages/Unauthorized";
 
 export const router = createBrowserRouter([
  { errorElement: <ErrorPage></ErrorPage>},
@@ -65,7 +66,7 @@ export const router = createBrowserRouter([
     path: '/agent',
 
     children: [{
-      index: true, element: <Navigate to={'/agent/transactions'}>
+      index: true, element: <Navigate to={'/agent/overview'}>
 
       </Navigate>
     }, ...generateRoutes(agentSidebarItems)]
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
   {
     path: '/register',
     Component: Register
+  },
+  {
+    path: '/unauthorized',
+    Component: Unauthorized
   },
 
 ]);
