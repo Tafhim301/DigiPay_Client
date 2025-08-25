@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 
 import SkeletonTable from "@/components/Skeletons/TableSkeletons";
-import { useUpdateProfileMutation } from "@/redux/feature/user/user.api";
 import { toast } from "sonner";
 
 import {
@@ -51,6 +50,7 @@ import {
 } from "@/components/ui/form";
 import PasswordInput from "@/components/ui/PasswordInput";
 import { useState } from "react";
+import { useUpdateProfileMutation } from "@/redux/feature/user/user.api";
 
 const updateSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),

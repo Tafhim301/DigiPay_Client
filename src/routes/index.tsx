@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
     path: '/admin',
 
     children: [{
-      index: true, element: <Navigate to={'/admin/analytics'}>
+      index: true, element: <Navigate to={'/admin/overview'}>
 
       </Navigate>
     }, ...generateRoutes(adminSidebarItems)]
