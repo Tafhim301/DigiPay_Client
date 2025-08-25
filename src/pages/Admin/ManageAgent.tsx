@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import {
@@ -25,28 +26,30 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import SkeletonTable from "@/components/Skeletons/TableSkeletons";
-import { useGetAllUsersQuery } from "@/redux/feature/agent/agent.api";
-import { useBlockUserMutation } from "@/redux/feature/user/user.api";
 import {
-  Users,
-  Phone,
-  ShieldCheck,
-  Wallet,
-  CalendarDays,
-  Lock,
+
   ClipboardList,
   UserX,
-  Unlock,
-  Settings,
+
+  Ban,
+  CheckCircle2,
+ 
+
 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  useApproveAgentMutation,
+  useGetAllAgentsQuery,
+  useSuspendAgentMutation,
 
+} from "@/redux/feature/user/user.api";
 
 interface IUser {
   _id: string;
   name: string;
   phone: string;
   role: string;
+  approvalStatus: "UNAPPLIED" | "SUSPENDED" | "APPROVED" | "PENDING";
   wallet: {
     _id: string;
     balance: number;
@@ -55,18 +58,40 @@ interface IUser {
   createdAt: string;
 }
 
+
+const StatusBadge = ({ status }: { status: IUser["approvalStatus"] }) => {
+  const getBadgeClass = () => {
+    switch (status) {
+      case "APPROVED":
+        return "bg-green-100 text-green-800 border-green-300";
+      case "SUSPENDED":
+        return "bg-red-100 text-red-800 border-red-300";
+      case "PENDING":
+        return "bg-yellow-100 text-yellow-800 border-yellow-300";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-300";
+    }
+  };
+  return <Badge className={getBadgeClass()}>{status}</Badge>;
+};
+
 export default function ManageAgent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const location = useLocation();
 
-  const { data, isLoading, refetch } = useGetAllUsersQuery({
+  const { data, isLoading, refetch } = useGetAllAgentsQuery({
     page: currentPage,
     limit,
   });
-  const [blockUser, { isLoading: isBlockLoading }] = useBlockUserMutation();
 
-  const users: IUser[] = data?.data || [];
+  const [suspendAgent, { isLoading: isSuspending }] = useSuspendAgentMutation();
+  const [approveAgent, { isLoading: isApproving }] = useApproveAgentMutation();
+
+
+  const isActionLoading = isSuspending || isApproving;
+
+  const agents: IUser[] = data?.data?.data || [];
   const totalPage = data?.meta?.totalPage || 1;
 
   useEffect(() => {
@@ -75,14 +100,17 @@ export default function ManageAgent() {
     }
   }, [location.pathname]);
 
-  const handleBlockToggle = async (walletId: string, isBlocked: boolean) => {
+  const handleStatusUpdate = async (
+    action: Promise<any>,
+    successMessage: string
+  ) => {
     try {
-      await blockUser(walletId).unwrap();
-      toast.success(`User wallet has been ${isBlocked ? 'unblocked' : 'blocked'}.`);
+      await action;
+      toast.success(successMessage);
       refetch();
     } catch (error) {
-      toast.error("Failed to update user status. Please try again.");
-      console.error("Failed to block/unblock user:", error);
+      toast.error("Action failed. Please try again.");
+      console.error("Agent status update failed:", error);
     }
   };
 
@@ -90,18 +118,18 @@ export default function ManageAgent() {
     return <SkeletonTable />;
   }
 
-  if (users.length === 0) {
+  if (!agents.length) {
     return (
       <div className="p-4 flex justify-center">
         <Card className="w-full max-w-2xl text-center p-8">
           <CardHeader>
             <div className="flex flex-col items-center gap-4">
               <UserX className="w-16 h-16 text-muted-foreground" />
-              <CardTitle>No Users Found</CardTitle>
+              <CardTitle>No Agents Found</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="text-muted-foreground">
-            No users are available for review at this time.
+            There are no agents to display at this time.
           </CardContent>
         </Card>
       </div>
@@ -114,7 +142,7 @@ export default function ManageAgent() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ClipboardList className="h-6 w-6" />
-            Users Review
+            Manage Agents
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -122,95 +150,57 @@ export default function ManageAgent() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4" />
-                      Name
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4" />
-                      Phone
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck className="h-4 w-4" />
-                      Role
-                    </div>
-                  </TableHead>
-                  <TableHead className="text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <Wallet className="h-4 w-4" />
-                      Wallet Balance
-                    </div>
-                  </TableHead>
-                  <TableHead className="text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <CalendarDays className="h-4 w-4" />
-                      Joined At
-                    </div>
-                  </TableHead>
-                  <TableHead className="text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <Settings className="h-4 w-4" />
-                      Actions
-                    </div>
-                  </TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Phone</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Wallet Balance</TableHead>
+                  <TableHead className="text-right">Joined At</TableHead>
+                  <TableHead className="text-center">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
-                  <TableRow key={user._id}>
-                    <TableCell className="font-medium">{user.name}</TableCell>
+                {agents.map((agent) => (
+                  <TableRow key={agent._id}>
+                    <TableCell className="font-medium">{agent.name}</TableCell>
                     <TableCell className="text-muted-foreground">
-                      {user.phone}
+                      {agent.phone}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline">{user.role}</Badge>
+                      <StatusBadge status={agent.approvalStatus} />
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      <Badge
-                        variant={
-                          user.wallet.isBlocked ? "destructive" : "default"
-                        }
-                        className="min-w-[100px] justify-center"
-                      >
-                        {`${user.wallet.balance.toFixed(2)} ৳`}
-                      </Badge>
+                      <Badge className="w-20">{`${agent.wallet.balance.toFixed(2)} ৳`}</Badge>
+
                     </TableCell>
                     <TableCell className="text-right text-sm text-muted-foreground">
-                      {new Date(user.createdAt).toLocaleDateString()}
+                      {new Date(agent.createdAt).toLocaleDateString()}
                     </TableCell>
-                    <TableCell className="text-right">
-                      {user.wallet.isBlocked ? (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          disabled={isBlockLoading}
-                          onClick={() =>
-                            handleBlockToggle(user.wallet._id, user.wallet.isBlocked)
-                          }
-                          className="w-28"
-                        >
-                          <Unlock className="mr-2 h-4 w-4" />
-                          Unblock
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          disabled={isBlockLoading}
-                          onClick={() =>
-                            handleBlockToggle(user.wallet._id, user.wallet.isBlocked)
-                          }
-                          className="w-28"
-                        >
-                          <Lock className="mr-2 h-4 w-4" />
-                          Block
-                        </Button>
-                      )}
+                    <TableCell className="text-center">
+                      <div className="flex items-center justify-center gap-2">
+
+                        {agent.approvalStatus === "APPROVED" && (
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            disabled={isActionLoading}
+                            onClick={() => handleStatusUpdate(suspendAgent(agent._id).unwrap(), "Agent has been suspended.")}
+                          >
+                            <Ban className="mr-2 h-4 w-4" />
+                            Suspend
+                          </Button>
+                        )}
+                        {agent.approvalStatus === "SUSPENDED" && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled={isActionLoading}
+                            onClick={() => handleStatusUpdate(approveAgent(agent._id).unwrap(), "Agent has been unsuspended.")}
+                          >
+                            <CheckCircle2 className="mr-2 h-4 w-4" />
+                            Unsuspend
+                          </Button>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -222,11 +212,7 @@ export default function ManageAgent() {
               <PaginationItem>
                 <PaginationPrevious
                   onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                  className={
-                    currentPage === 1
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
+                  className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                 />
               </PaginationItem>
               {Array.from({ length: totalPage }, (_, idx) => idx + 1).map(
@@ -244,14 +230,8 @@ export default function ManageAgent() {
               )}
               <PaginationItem>
                 <PaginationNext
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(totalPage, prev + 1))
-                  }
-                  className={
-                    currentPage === totalPage
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
+                  onClick={() => setCurrentPage((prev) => Math.min(totalPage, prev + 1))}
+                  className={currentPage === totalPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
                 />
               </PaginationItem>
             </PaginationContent>

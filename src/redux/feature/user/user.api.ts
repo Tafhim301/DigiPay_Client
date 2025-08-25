@@ -19,10 +19,9 @@ export const userApi = baseApi.injectEndpoints({
       providesTags: ["All Users"],
     }),
     getAllAgents: builder.query({
-      query: (info) => ({
-        url: `/agent/suspend-agent/${info}`,
+      query: () => ({
+        url: `/agent/all-agents`,
         method: "GET",
-       
       }),
       providesTags: ["All Agent"],
     }),
@@ -30,13 +29,31 @@ export const userApi = baseApi.injectEndpoints({
       query: (id) => ({
         url: `/wallet/block-wallet/${id}`,
         method: "PATCH",
-       
       }),
       invalidatesTags: ["All Users"],
     }),
-
-
+    suspendAgent: builder.mutation({
+      query: (id) => ({
+        url: `/agent/suspend-agent/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["All Agent"],
+    }),
+    approveAgent: builder.mutation({
+      query: (id) => ({
+        url: `/agent/approve-agent/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["All Agent"],
+    }),
   }),
 });
 
-export const { useUpdateProfileMutation,useGetAllUserQuery,useBlockUserMutation} = userApi;
+export const {
+  useUpdateProfileMutation,
+  useGetAllUserQuery,
+  useGetAllAgentsQuery,
+  useBlockUserMutation,
+  useSuspendAgentMutation,
+  useApproveAgentMutation
+} = userApi;
