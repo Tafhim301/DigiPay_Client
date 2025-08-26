@@ -17,6 +17,7 @@ import ErrorPage from "@/components/Error";
 import Unauthorized from "@/pages/Unauthorized";
 import FAQPage from "@/pages/Faq/FAQ";
 import FeaturesPage from "@/pages/Features/Features";
+import ContactPage from "@/pages/Contact/ContactPage";
 
 
 export const router = createBrowserRouter([
@@ -45,6 +46,11 @@ export const router = createBrowserRouter([
       {
         path : '/features',
         Component : FeaturesPage
+
+      },
+      {
+        path : '/contact',
+        Component : ContactPage
 
       }
 
