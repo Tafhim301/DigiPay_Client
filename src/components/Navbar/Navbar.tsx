@@ -88,7 +88,6 @@ const Navbar = () => {
             <ModeToggle />
 
 
-            {/* Mobile Menu */}
             <div className="md:hidden">
               <NavigationSheet />
             </div>

@@ -2,9 +2,8 @@ import { ArrowRight } from "lucide-react";
 import img from "@/assets/Images/homePageImage.jpg";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/assets/Logo";
-import { motion, type Variants } from "framer-motion"; // <-- Import `Variants` type
+import { motion, type Variants } from "framer-motion";
 
-// Define the variants with the correct type
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -17,14 +16,14 @@ const containerVariants: Variants = {
   },
 };
 
-// This is the corrected `itemVariants`
+
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring", // Use a valid string literal for the type
+      type: "spring", 
       stiffness: 100,
       damping: 10,
     },
@@ -44,10 +43,10 @@ const imageVariants: Variants = {
 };
 
 
-// ... rest of the component
+
 const HeroSection = ({
   heading = "Seamless Digital Payments with DigiPay",
-  description = "DigiPay is a secure and modern digital wallet system designed to simplify money transfers, cash-in, cash-out, and transaction tracking. Built with Express, MongoDB, and React for a smooth user experience.",
+  description = "DigiPay is a secure and modern digital wallet system designed to simplify money transfers, cash-in, cash-out, and transaction tracking. Built with the latest modern tecnologies for a smooth user experience.",
   buttons = {
     primary: {
       text: "Get Started",

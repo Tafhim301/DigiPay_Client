@@ -15,6 +15,7 @@ import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import ErrorPage from "@/components/Error";
 import Unauthorized from "@/pages/Unauthorized";
+import FAQPage from "@/components/modules/Faq/FAQ";
 
 export const router = createBrowserRouter([
  { errorElement: <ErrorPage></ErrorPage>},
@@ -32,8 +33,13 @@ export const router = createBrowserRouter([
 
         Component: Home,
 
-
+      
       },
+
+      {
+        path : '/faq',
+        Component : FAQPage
+      }
 
 
     ]
