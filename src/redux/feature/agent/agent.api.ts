@@ -11,7 +11,39 @@ export const AgentApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+    getAllAgentApplications: builder.query({
+      query: (params) => ({
+        url: "/agent/agent-applications",
+        method: "GET",
+        params,
+      }),
+      providesTags: ["Applicants"],
+    }),
+    approveAgentApplications: builder.mutation({
+      query: (id) => ({
+        url: `/agent/approve-agent/${id}`,
+        method: "PATCH",
+        
+      }),
+      invalidatesTags: ["Applicants"],
+    }),
+    rejectAgentApplications: builder.mutation({
+      query: (id) => ({
+        url: `/agent/reject-agent/${id}`,
+        method: "PATCH",
+        
+      }),
+      invalidatesTags: ["Applicants"],
+    }),
+    applyAgent: builder.mutation({
+      query: () => ({
+        url: "/agent/agent-application",
+        method: "PATCH",
+      
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery } = AgentApi;
+export const { useGetAllUsersQuery , useApplyAgentMutation , useGetAllAgentApplicationsQuery,useApproveAgentApplicationsMutation,useRejectAgentApplicationsMutation } = AgentApi;

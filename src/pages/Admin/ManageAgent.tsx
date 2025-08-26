@@ -33,7 +33,7 @@ import {
 
   Ban,
   CheckCircle2,
- 
+
 
 } from "lucide-react";
 import { toast } from "sonner";
@@ -207,35 +207,51 @@ export default function ManageAgent() {
               </TableBody>
             </Table>
           </div>
-          <Pagination className="mt-6">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                  className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                />
-              </PaginationItem>
-              {Array.from({ length: totalPage }, (_, idx) => idx + 1).map(
-                (pageNumber) => (
-                  <PaginationItem
-                    key={pageNumber}
-                    onClick={() => setCurrentPage(pageNumber)}
-                    className="cursor-pointer"
-                  >
-                    <PaginationLink isActive={currentPage === pageNumber}>
-                      {pageNumber}
-                    </PaginationLink>
+          {
+            totalPage !== 1 && (
+              <Pagination className="mt-6">
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.max(1, prev - 1))
+                      }
+                      className={
+                        currentPage === 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
                   </PaginationItem>
-                )
-              )}
-              <PaginationItem>
-                <PaginationNext
-                  onClick={() => setCurrentPage((prev) => Math.min(totalPage, prev + 1))}
-                  className={currentPage === totalPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+                  {Array.from({ length: totalPage }, (_, idx) => idx + 1).map(
+                    (pageNumber) => (
+                      <PaginationItem
+                        key={pageNumber}
+                        onClick={() => setCurrentPage(pageNumber)}
+                        className="cursor-pointer"
+                      >
+                        <PaginationLink isActive={currentPage === pageNumber}>
+                          {pageNumber}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )
+                  )}
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.min(totalPage, prev + 1))
+                      }
+                      className={
+                        currentPage === totalPage
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )
+          }
         </CardContent>
       </Card>
     </div>

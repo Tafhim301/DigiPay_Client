@@ -17,6 +17,7 @@ import {
   Settings,
   Edit,
   Hand,
+  Dot,
 } from "lucide-react";
 
 import SkeletonTable from "@/components/Skeletons/TableSkeletons";
@@ -51,6 +52,8 @@ import {
 import PasswordInput from "@/components/ui/PasswordInput";
 import { useState } from "react";
 import { useUpdateProfileMutation } from "@/redux/feature/user/user.api";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useApplyAgentMutation } from "@/redux/feature/agent/agent.api";
 
 const updateSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -75,10 +78,11 @@ const updateSchema = z.object({
 type UpdateFormData = z.infer<typeof updateSchema>;
 
 export default function Profile() {
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const { data, isLoading } = useUserInfoQuery(undefined);
   const [updateUser] = useUpdateProfileMutation();
   const [validatePassword] = useValidatePasswordMutation();
+  const [applyAgent] = useApplyAgentMutation();
   const user = data?.data;
 
   const form = useForm<UpdateFormData>({
@@ -92,13 +96,13 @@ export default function Profile() {
   });
 
   const onSubmit = async (values: UpdateFormData) => {
-    console.log(values)
+
     const toastId = toast.loading("Processing...");
     try {
       const validatePasswordReq = await validatePassword({ password: values.password })
       if (validatePasswordReq?.data?.success) {
         try {
-          await updateUser({ name: values?.name, phone: values?.phone  , password : values?.newPassword }).unwrap();
+          await updateUser({ name: values?.name, phone: values?.phone, password: values?.newPassword }).unwrap();
           toast.success("Profile updated successfully!", { id: toastId });
           setOpen(false)
 
@@ -128,6 +132,20 @@ export default function Profile() {
     }
   };
 
+  const handleAgentApplication = async () => {
+    try {
+
+      await applyAgent(undefined).unwrap();
+
+      toast.success("Successfully applied for agent role")
+
+
+    } catch (error: any) {
+      toast.error(error.message || 'Something Went Wrong')
+
+    }
+  }
+
   if (isLoading) {
     return <SkeletonTable />;
   }
@@ -156,7 +174,7 @@ export default function Profile() {
 
 
       <Card className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border-gray-200 dark:border-gray-700">
-        <CardHeader className="flex flex-col items-center justify-center p-6">
+        <CardHeader className="flex flex-col items-center justify-center p-6 relative">
           <Avatar className="h-28 w-28 border-4 border-blue-600 shadow-sm mb-4">
             <AvatarImage alt={user?.name} />
             <AvatarFallback className="text-4xl font-semibold">
@@ -171,7 +189,23 @@ export default function Profile() {
               {user?.role || "User"}
             </CardDescription>
           </div>
+
+       
+        {user?.approvalStatus === "PENDING" && (
+            <div
+              className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-800 dark:text-yellow-200
+                }`}
+            >
+              
+              {user?.role === "ADMIN"
+                ? "Admin"
+                : user?.approvalStatus === "APPROVED"
+                  ? "Agent Approved"
+                  : "PENDING"}
+            </div>
+          )}
         </CardHeader>
+
 
         <Separator />
 
@@ -222,6 +256,20 @@ export default function Profile() {
             </div>
           </div>
         </CardContent>
+
+        {user?.role === "USER" && user?.approvalStatus === 'UNAPPLIED' && (
+          <div className="flex justify-center items-center border-t p-6">
+            <Button
+              variant="outline"
+              onClick={handleAgentApplication}
+              className="w-full"
+            >
+              Apply For Agent Role
+            </Button>
+          </div>
+        )}
+
+
 
         <Separator />
 
