@@ -54,7 +54,7 @@ const HeroSection = ({
     },
     secondary: {
       text: "Learn More",
-      url: "/about",
+      url: "/features",
     },
   },
   image = {

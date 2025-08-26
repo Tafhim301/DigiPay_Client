@@ -43,7 +43,18 @@ export const AgentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    agentCashIn: builder.mutation({
+      query: (data) => ({
+        url: "/agent/cash-in-agent",
+        method: "POST",
+        data : data
+
+
+      
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery , useApplyAgentMutation , useGetAllAgentApplicationsQuery,useApproveAgentApplicationsMutation,useRejectAgentApplicationsMutation } = AgentApi;
+export const { useGetAllUsersQuery , useApplyAgentMutation , useGetAllAgentApplicationsQuery,useApproveAgentApplicationsMutation,useRejectAgentApplicationsMutation , useAgentCashInMutation} = AgentApi;

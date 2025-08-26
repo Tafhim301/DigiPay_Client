@@ -68,7 +68,7 @@ export default function CashOutForm() {
 
         dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
 
-        toast.success("Send Money Successful", { id: toastId });
+        toast.success("Cash Out Successful", { id: toastId });
         navigate("/user/wallet");
       }
 

@@ -52,7 +52,6 @@ import {
 import PasswordInput from "@/components/ui/PasswordInput";
 import { useState } from "react";
 import { useUpdateProfileMutation } from "@/redux/feature/user/user.api";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useApplyAgentMutation } from "@/redux/feature/agent/agent.api";
 
 const updateSchema = z.object({
@@ -71,7 +70,7 @@ const updateSchema = z.object({
     })
     .refine((val) => /\d/.test(val), {
       message: "Password must contain at least one number",
-    }),
+    }).optional(),
   password: z.string().min(6, "Password is required for confirmation"),
 });
 

@@ -1,5 +1,6 @@
 import AdminDashboard from "@/pages/Admin/AdminDashboard";
 import AgentApllications from "@/pages/Admin/AgentApllications";
+import AgentCashIn from "@/pages/Admin/AgentCashIn";
 import ManageAgent from "@/pages/Admin/ManageAgent";
 import ManageUser from "@/pages/Admin/ManageUser";
 import Profile from "@/pages/User/Profile";
@@ -34,6 +35,15 @@ export const adminSidebarItems : ISidebarItems[]   =
                     Component: ManageUser
 
                 },
+               
+
+
+            ],
+        },
+        {
+            title: "Agents",
+            items: [
+             
                 {
                     title: "Manage Agents",
                     url: "/admin/manageAgents",
@@ -45,6 +55,12 @@ export const adminSidebarItems : ISidebarItems[]   =
                     title: "Agent Application",
                     url: "/admin/applications",
                     Component: AgentApllications
+
+                },
+                {
+                    title: "Cash In to an Agent Account",
+                    url: "/admin/agentCashIn",
+                    Component: AgentCashIn
 
                 },
              

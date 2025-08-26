@@ -189,7 +189,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-2">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">
             Welcome Back, Admin!
@@ -198,8 +198,8 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* --- Top Stat Cards --- */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div className="grid gap-4 lg:grid-cols-4">
         <StatCard
           title="Total Transacted Amount"
           value={formatCurrency(stats.totalTransactedAmount)}
@@ -255,7 +255,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* --- Main Charts Grid --- */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+      <div className="grid gap-4  lg:grid-cols-7">
         <Card className="col-span-1 lg:col-span-4">
           <CardHeader>
             <CardTitle>Daily Transaction Volume</CardTitle>

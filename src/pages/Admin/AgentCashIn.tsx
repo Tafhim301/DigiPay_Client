@@ -12,14 +12,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-import { useCashInMutation} from "@/redux/feature/transaction/transaction.api";
+
 import { useValidatePasswordMutation } from "@/redux/feature/Auth/auth.api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { walletApi } from "@/redux/feature/wallet/wallet.api";
+
 import PasswordInput from "@/components/ui/PasswordInput";
 import { Logo } from "@/assets/Logo";
 import { Loader2 } from "lucide-react";
+import { useAgentCashInMutation } from "@/redux/feature/agent/agent.api";
+import { satsApi } from "@/redux/feature/stats/stats.auth";
 
 
 
@@ -38,7 +40,7 @@ const formSchema = z.object({
 
 type TopUpFormValues = z.infer<typeof formSchema>;
 
-export default function CashIn() {
+export default function AgentCashIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,7 +53,7 @@ export default function CashIn() {
     },
   });
 
-  const [CashIn, { isLoading: topUpLoading }] = useCashInMutation();
+  const [AgentCashIn, { isLoading: topUpLoading }] = useAgentCashInMutation();
   const [validatePassword] = useValidatePasswordMutation();
 
   const onSubmit = async (data: TopUpFormValues) => {
@@ -63,13 +65,13 @@ export default function CashIn() {
       }).unwrap();
 
       if (passwordValidation.success) {
-        const res = await CashIn({receiver : data.receiver, amount: data.amount }).unwrap();
+        const res = await AgentCashIn({receiver : data.receiver, amount: data.amount }).unwrap();
         console.log(res);
 
-        dispatch(walletApi.util.invalidateTags(["User", "Wallet", "Transaction"]));
+        dispatch(satsApi.util.resetApiState());
 
-        toast.success("Cash In Successful", { id: toastId });
-        navigate("/agent/overview");
+        toast.success("Cash In to agent account Successful", { id: toastId });
+        navigate("/admin/overview");
       }
 
       form.reset();
@@ -93,10 +95,10 @@ export default function CashIn() {
           <Logo></Logo>
         </div>
         <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
-          Cash In
+          Cash In Agent
         </h1>
         <p className="text-center text-muted-foreground mt-2">
-         Cash In to a user account. A taste of some real cash!
+         Cash In to an agent account. Let the cash flow around!
         </p>
       </div>
 
@@ -109,7 +111,7 @@ export default function CashIn() {
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter user Phone Number" type="tel" {...field} />
+                    <Input placeholder="Enter Agent Phone Number" type="tel" {...field} />
 
                   </FormControl>
                   <FormMessage />

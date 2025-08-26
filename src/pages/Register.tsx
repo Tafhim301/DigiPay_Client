@@ -15,7 +15,7 @@ export default function Register() {
             <img
               src={image}
               alt="DigiPay Illustration"
-              className="h-full w-full"
+              className="h-full w-full rounded-2xl object-cover"
             />
           </CardContent>
         

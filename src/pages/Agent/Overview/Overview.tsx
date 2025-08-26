@@ -1,4 +1,4 @@
-import { Link } from "react-router"; // Corrected import for react-router
+import { Link } from "react-router"; 
 import {
     Card,
     CardContent,
@@ -69,6 +69,8 @@ export default function AgentOverview() {
     const balance = userData?.data?.wallet?.balance ?? 0;
     const cashInTotal = summary.cashInTotal ?? 0;
     const cashOutTotal = (summary.cashOutTotal ?? 0) + (summary.withdrawTotal ?? 0);
+    const adminCashInTotal = summary.adminCashInTotal ?? 0;
+    console.log(summaryData)
 
     if (isSummaryLoading || isUserLoading) {
         return (
@@ -99,7 +101,7 @@ export default function AgentOverview() {
     return (
         <main className="p-4 sm:p-6 lg:p-8 bg-slate-50 dark:bg-slate-950 min-h-screen">
             <div className="space-y-8">
-                {/* Welcome Header */}
+
                 <div className="flex flex-col space-y-1">
                     <h1 className="text-2xl md:text-3xl font-bold text-foreground">Welcome back, {agentName}!</h1>
                     <p className="text-muted-foreground">Here is your financial overview for today, {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.</p>
@@ -115,8 +117,21 @@ export default function AgentOverview() {
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl lg:text-3xl font-bold text-foreground">${balance.toLocaleString()}</div>
+                            <div className="text-2xl lg:text-3xl font-bold text-foreground">BDT {balance.toLocaleString()}</div>
                             <p className="text-xs text-muted-foreground mt-1">Your current available balance</p>
+                        </CardContent>
+                    </Card>
+
+                    <Card className="transition-all duration-300 border-border/40 hover:border-border/80">
+                        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                            <CardTitle className="text-sm font-medium text-muted-foreground">Admin Cash In</CardTitle>
+                            <div className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/50">
+                                <ArrowUpCircle className="h-5 w-5 text-blue-500" />
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl lg:text-3xl font-bold text-foreground">BDT {adminCashInTotal.toLocaleString()}</div>
+                            <p className="text-xs text-muted-foreground mt-1">Total money added by admin</p>
                         </CardContent>
                     </Card>
 
@@ -129,7 +144,7 @@ export default function AgentOverview() {
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl lg:text-3xl font-bold text-foreground">${cashInTotal.toLocaleString()}</div>
+                            <div className="text-2xl lg:text-3xl font-bold text-foreground">BDT {cashInTotal.toLocaleString()}</div>
                             <p className="text-xs text-muted-foreground mt-1">Total amount sent to users</p>
                         </CardContent>
                     </Card>
@@ -143,7 +158,7 @@ export default function AgentOverview() {
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl lg:text-3xl font-bold text-foreground">${cashOutTotal.toLocaleString()}</div>
+                            <div className="text-2xl lg:text-3xl font-bold text-foreground">BDT {cashOutTotal.toLocaleString()}</div>
                             <p className="text-xs text-muted-foreground mt-1">Total amount received from users</p>
                         </CardContent>
                     </Card>
@@ -168,6 +183,11 @@ export default function AgentOverview() {
                                             <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.4} />
                                             <stop offset="95%" stopColor="#f43f5e" stopOpacity={0} />
                                         </linearGradient>
+                                        <linearGradient id="adminCashInGradient" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4} />
+                                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                                        </linearGradient>
+
                                         <linearGradient id="cashOutGradient" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
                                             <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
@@ -179,6 +199,13 @@ export default function AgentOverview() {
                                     <Tooltip content={<CustomTooltip />} />
                                     <Area type="monotone" dataKey="Cash In" stroke="#f43f5e" fill="url(#cashInGradient)" strokeWidth={2} />
                                     <Area type="monotone" dataKey="Cash Out" stroke="#10b981" fill="url(#cashOutGradient)" strokeWidth={2} />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="Admin Cash In"
+                                        stroke="#3b82f6"
+                                        fill="url(#adminCashInGradient)"
+                                        strokeWidth={2}
+                                    />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </CardContent>

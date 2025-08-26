@@ -15,7 +15,7 @@ export default function Login() {
             <img
               src={image}
               alt="DigiPay Illustration"
-              className="h-full w-full object-cover"
+              className="h-full w-full rounded-2xl object-cover"
             />
           </CardContent>
 
