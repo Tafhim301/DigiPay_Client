@@ -15,7 +15,9 @@ import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import ErrorPage from "@/components/Error";
 import Unauthorized from "@/pages/Unauthorized";
-import FAQPage from "@/components/modules/Faq/FAQ";
+import FAQPage from "@/pages/Faq/FAQ";
+import FeaturesPage from "@/pages/Features/Features";
+
 
 export const router = createBrowserRouter([
  { errorElement: <ErrorPage></ErrorPage>},
@@ -39,6 +41,11 @@ export const router = createBrowserRouter([
       {
         path : '/faq',
         Component : FAQPage
+      },
+      {
+        path : '/features',
+        Component : FeaturesPage
+
       }
 
 

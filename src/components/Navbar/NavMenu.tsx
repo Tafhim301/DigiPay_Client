@@ -11,9 +11,9 @@ import {  NavLink, useLocation } from "react-router";
 
 const navLinks = [
   { name: "Home", path: "/", role: "PUBLIC" },
-  { name: "FAQ", path: "/faq", role: "PUBLIC" },
-  { name: "About", path: "/about", role: "PUBLIC" },
+  { name: "Feautures", path: "/features", role: "PUBLIC" },
   { name: "Contact", path: "/contact", role: "PUBLIC" },
+  { name: "FAQ", path: "/faq", role: "PUBLIC" },
   { name: "Admin Dashboard", path: "/admin", role: role.ADMIN },
   { name: "Dashboard", path: "/user", role: role.USER },
   { name: "Agent Dashboard", path: "/agent", role: role.AGENT },
