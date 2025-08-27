@@ -83,9 +83,9 @@ export default function Profile() {
   const [restartDialogOpen, setRestartDialogOpen] = useState(false);
 
   const handleRestartTour = () => {
-    localStorage.removeItem("tourSeen"); 
+    localStorage.removeItem("tourSeen");
     setRestartDialogOpen(false);
-    navigate("/"); 
+    navigate("/");
   };
   const [open, setOpen] = useState(false)
   const { data, isLoading } = useUserInfoQuery(undefined);
@@ -125,10 +125,11 @@ export default function Profile() {
         }
 
       }
-      else if (validatePasswordReq?.error?.data?.message) {
-        toast.error(validatePasswordReq?.error?.data?.message || "Something went wrong", {
-          id: toastId,
-        });
+      else if ((validatePasswordReq?.error as any)?.data?.message) {
+        toast.error(
+          (validatePasswordReq?.error as any)?.data?.message || "Something went wrong",
+          { id: toastId }
+        );
       }
 
 

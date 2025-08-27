@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router"; 
 import {
     Card,
@@ -24,7 +25,10 @@ import {
     Tooltip,
     ResponsiveContainer,
     CartesianGrid,
+    type TooltipProps,
+   
 } from "recharts";
+
 
 import { useGetWalletSummaryQuery } from "@/redux/feature/wallet/wallet.api";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
@@ -33,7 +37,7 @@ import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import TransactionTable from "@/pages/User/Features/TransactionHistory";
 
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label } : TooltipProps<number, string>) => {
     if (active && payload && payload.length) {
         return (
             <div className="rounded-lg border bg-background p-2 shadow-sm">
@@ -41,13 +45,13 @@ const CustomTooltip = ({ active, payload, label }) => {
                     <span className="text-[0.70rem] col-span-2 uppercase text-muted-foreground pb-1 border-b mb-1">
                         {label}
                     </span>
-                    {payload.map((p, index) => (
+                    {payload.map((p: any , index: number)  => (
                         <div key={index} className="flex flex-col">
                             <span className="text-[0.70rem] uppercase" style={{ color: p.color }}>
                                 {p.name}
                             </span>
                             <span className="font-bold" style={{ color: p.color }}>
-                                ${p.value.toLocaleString()}
+                                ${p?.value?.toLocaleString()}
                             </span>
                         </div>
                     ))}
@@ -196,7 +200,7 @@ export default function AgentOverview() {
                                     <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-muted-foreground/20" />
                                     <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
                                     <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `৳${value}`} />
-                                    <Tooltip content={<CustomTooltip />} />
+                                    <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
                                     <Area type="monotone" dataKey="Cash In" stroke="#f43f5e" fill="url(#cashInGradient)" strokeWidth={2} />
                                     <Area type="monotone" dataKey="Cash Out" stroke="#10b981" fill="url(#cashOutGradient)" strokeWidth={2} />
                                     <Area

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/assets/Logo";
 import { motion, type Variants } from "framer-motion";
 
+
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -44,14 +45,12 @@ const imageVariants: Variants = {
 
 
 
+
 const HeroSection = ({
   heading = "Seamless Digital Payments with DigiPay",
   description = "DigiPay is a secure and modern digital wallet system designed to simplify money transfers, cash-in, cash-out, and transaction tracking. Built with the latest modern tecnologies for a smooth user experience.",
   buttons = {
-    primary: {
-      text: "Register Now",
-      url: "/register",
-    },
+
     secondary: {
       text: "Learn More",
       url: "/features",
@@ -97,11 +96,7 @@ const HeroSection = ({
               className="flex w-full flex-col justify-center gap-3 sm:flex-row lg:justify-start"
               variants={itemVariants}
             >
-              {buttons.primary && (
-                <Button id="#goToRegister" asChild>
-                  <a href={buttons.primary.url}>{buttons.primary.text}</a>
-                </Button>
-              )}
+              
               {buttons.secondary && (
                 <Button asChild>
                   <a href={buttons.secondary.url}>
@@ -121,7 +116,7 @@ const HeroSection = ({
             <img
               src={image.src}
               alt={image.alt}
-              className="rounded-xl shadow-2xl w-full object-cover"
+              className="rounded-xl shadow-2xl w-full object-cover" 
             />
           </motion.div>
         </div>

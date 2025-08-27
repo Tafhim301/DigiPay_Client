@@ -1,69 +1,223 @@
-# React + TypeScript + Vite
+# 💳 DigiPay Frontend (React + Redux Toolkit + RTK Query)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## **Project Overview**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**DigiPay** is a **secure, role-based digital wallet frontend** built with **React.js**, **Redux Toolkit**, and **RTK Query**.  
+It interacts with a backend API to provide seamless financial operations for **Users**, **Agents**, and **Admins**, inspired by services like **bKash** and **Nagad**.
 
-## Expanding the ESLint configuration
+This project emphasizes:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Role-based dashboards** with tailored features
+- **Secure authentication and state management**
+- **Responsive, polished UI with interactive components**
+- **Data visualization and guided tours**
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## **Tech Stack**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+**Frontend**
+
+- **Framework**: React.js, React Router
+- **State Management**: Redux Toolkit, RTK Query
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Headless UI, Lucide Icons, React Chart.js 2
+- **Notifications**: react-toastify or sonner
+- **Guided Tour**: react-joyride / driver.js
+
+**Backend API**
+
+- **Base URL**: [https://digital-wallet-backend-phi.vercel.app/api/v1](https://digital-wallet-backend-phi.vercel.app/api/v1)
+- **Authentication**: JWT
+- **Database**: MongoDB
+
+---
+
+## **📌 Features**
+
+### **🌐 Public Landing Pages**
+
+- **Home** – Hero banner, tagline, CTA buttons, responsive navbar & footer.
+- **About** – Company mission, story, and team info.
+- **Features** – Highlight app capabilities with icons and visuals.
+- **Pricing (optional)** – Subscription tiers & service fees.
+- **Contact** – Inquiry form with simulated submission.
+- **FAQ** – Frequently asked questions.
+
+---
+
+### **🔑 Authentication**
+
+- JWT-based login
+- Registration with role selection (**User/Agent**)
+- Role-based dashboard redirection
+- Persistent login state
+- Logout functionality
+
+---
+
+### **👤 User Dashboard**
+
+- Wallet overview & recent transactions
+- Deposit money via agent
+- Withdraw money from wallet/ATM
+- Send money to other users (search by phone/email)
+- Transaction history with pagination & filters
+- Profile management (name, phone, password)
+
+---
+
+### **🧑‍💼 Agent Dashboard**
+
+- Cash-in / Cash-out summary
+- Deposit money to users
+- Withdraw money from users
+- Transaction history
+- Commission history (optional)
+- Profile management
+
+---
+
+### **🛡️ Admin Dashboard**
+
+- Total users, agents, transactions & volume overview
+- Manage users (block/unblock)
+- Manage agents (approve/suspend)
+- View & filter all transactions
+- Adjust system fees/limits (optional)
+- Profile management
+
+---
+
+### **⚡ General Features**
+
+- Role-based navigation menus
+- Global loading indicators & error handling
+- Form validations & numeric checks
+- Pagination for long lists
+- Dynamic charts and data visualizations
+  - **Cards, Pie Charts, Bar Charts, Line Charts, Tables**
+- Toast notifications for success/error messages
+- Guided tour (react-joyride) with:
+  1. Navigation menu
+  2. Dashboard stats cards
+  3. Chart section
+  4. Table search/filter
+  5. Theme toggle
+- Fully responsive UI & light/dark mode support
+- Optimized performance with lazy-loading & skeleton screens
+
+---
+
+## **📊 Example Charts & Dashboard Widgets**
+
+```ts
+// Example: Dashboard Wallet Balance Chart
+import { Line } from "react-chartjs-2";
+
+const data = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+  datasets: [
+    {
+      label: "Wallet Balance",
+      data: [500, 800, 750, 1200, 900],
+      borderColor: "#4f46e5",
+      backgroundColor: "rgba(79, 70, 229, 0.1)",
+      tension: 0.4,
     },
-  },
-])
+  ],
+};
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```tsx
+// Example: Summary Cards
+<Card>
+  <CardHeader>
+    <CardTitle>Total Users</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <p className="text-2xl font-bold">1,245</p>
+    <p className="text-gray-500">Active Users</p>
+  </CardContent>
+</Card>
 ```
+---
+## **🚀 Getting Started**
+
+1. Clone the Repository
+
+```bash
+git clone https://github.com/Tafhim301/Digital-Wallet-Frontend
+cd Digital-Wallet-Frontend
+```
+
+2. Install Dependencies
+
+```bash
+npm install
+
+```
+
+3.**_Environment Variables_**
+
+Create a .env file:
+
+```bash
+VITE_BASE_URL=https://digital-wallet-backend-phi.vercel.app/api/v1
+```
+4. Run the App
+
+```bash
+npm start
+```
+---
+---
+
+## **📂 Project Structure**
+
+```bash
+src/
+├── redux/            # RTK Query API features
+├── assets/           # Images, logos, icons
+├── components/       # Reusable UI components
+├── features/         # Redux slices
+├── hooks/            # Custom hooks
+├── pages/            # React Router pages
+├── routes/           # Route definitions
+└── App.tsx           # App entry point
+```
+ 
+---
+<!-- 
+## 🎥 Demo
+
+Watch a short demo of DigiPay Frontend in action: -->
+<!-- Video will be added soon -->
+---
+## **🎯 Goals & Best Practices**
+
+>Modular, reusable components
+
+>Clean code & folder structure
+
+>Responsive & accessible UI
+
+>Optimized for performance & scalability
+
+>Professional finish with realistic data
+
+---
+
+---
+
+## 👨‍💻 Author
+
+**Tafhimul Islam**  
+GitHub: [@tafhim301](https://github.com/tafhim301)
+
+---
