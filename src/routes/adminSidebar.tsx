@@ -1,6 +1,7 @@
 import AdminDashboard from "@/pages/Admin/AdminDashboard";
 import AgentApllications from "@/pages/Admin/AgentApllications";
 import AgentCashIn from "@/pages/Admin/AgentCashIn";
+import AllTransactionTable from "@/pages/Admin/AllTransactionTable";
 import ManageAgent from "@/pages/Admin/ManageAgent";
 import ManageUser from "@/pages/Admin/ManageUser";
 import Profile from "@/pages/User/Profile";
@@ -18,6 +19,12 @@ export const adminSidebarItems : ISidebarItems[]   =
                     title: "Business Dashboard",
                     url: "/admin/overview",
                     Component: AdminDashboard
+
+                },
+                {
+                    title: "All Transaction",
+                    url: "/admin/transaction",
+                    Component: AllTransactionTable
 
                 },
              

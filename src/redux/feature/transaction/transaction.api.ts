@@ -49,6 +49,14 @@ export const transactionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Transaction"],
     }),
+    GetAlltransactions: builder.query({
+      query: (params) => ({
+        url: "/transaction/all-transactions",
+        method: "GET",
+        params
+      }),
+      providesTags: ["All Transaction"],
+    }),
     cashIn: builder.mutation({
       query: (info) => ({
         url: "/transaction/cash-in",
@@ -75,6 +83,8 @@ export const {
   useCashOutMutation,
   useWithdrawATMMutation,
   useTransactionsQuery,
+  useGetAlltransactionsQuery,
   useCashInMutation,
-  useCashOutByAgentMutation
+  useCashOutByAgentMutation,
+
 } = transactionApi;
