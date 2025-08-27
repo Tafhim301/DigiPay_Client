@@ -10,20 +10,22 @@ import { toast } from "sonner";
 import { useAppDispatch } from "@/redux/hook";
 import NavbarSkeleton from "../Skeletons/NavbarSkeleton";
 import HeroSkeleton from "../Skeletons/HeroSkeleton";
+import TourProvider from "../TourProvider";
 
 
 
 const Navbar = () => {
   const { data, isLoading } = useUserInfoQuery(undefined)
-  console.log(data);
- 
+
+
+
   const [logout] = useLogoutMutation();
-    const dispatch = useAppDispatch();
-
-  
+  const dispatch = useAppDispatch();
 
 
- 
+
+
+
 
   if (isLoading) {
     return (
@@ -57,28 +59,29 @@ const Navbar = () => {
 
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md shadow-md">
+
+    <div id="navbar" className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md shadow-md">
       <nav className="h-16 bg-background border-b">
         <div className="h-full flex items-center justify-between  px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-8">
             <Logo />
 
-      
+
             <NavMenu className="hidden md:block" />
           </div>
 
           <div className="flex items-center justify-end gap-3">
 
             {
-            data?.data?._id ?
+              data?.data?._id ?
                 <Button onClick={() => handleLogOut()} variant={'secondary'}>Logout</Button>
-               :
-               <Link to={'/login'}>
-                <Button>Login</Button>
-              </Link>
+                :
+                <Link to={'/login'}>
+                  <Button id="loginButton">Login</Button>
+                </Link>
 
 
-              
+
 
 
             }
@@ -94,6 +97,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      <TourProvider />
     </div>
   );
 };

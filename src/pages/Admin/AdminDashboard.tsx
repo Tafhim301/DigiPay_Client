@@ -205,7 +205,7 @@ export default function AdminDashboard() {
           value={formatCurrency(stats.totalTransactedAmount)}
           icon={Wallet}
           description={`${stats.totalTransactionLast30Days.totalTransactions.toLocaleString()} transactions in 30 days`}
-          iconBgColor="bg-emerald-100"
+          iconBgColor="bg-blue-100"
         />
         <StatCard
           title="Total Users"
@@ -254,7 +254,7 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      {/* --- Main Charts Grid --- */}
+     
       <div className="grid gap-4  lg:grid-cols-7">
         <Card className="col-span-1 lg:col-span-4">
           <CardHeader>
@@ -274,8 +274,9 @@ export default function AdminDashboard() {
               <BarChart data={dailyChartData}>
                 <defs>
                   <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                    <stop offset="80%" stopColor="#21abcd" stopOpacity={1} />
+                
+               
                   </linearGradient>
                 </defs>
                 <XAxis
@@ -345,7 +346,7 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      {/* --- Data Tables & Insights Grid --- */}
+      
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>

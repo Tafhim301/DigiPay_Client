@@ -17,7 +17,7 @@ import {
   Settings,
   Edit,
   Hand,
-  Dot,
+
 } from "lucide-react";
 
 import SkeletonTable from "@/components/Skeletons/TableSkeletons";
@@ -53,6 +53,8 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import { useState } from "react";
 import { useUpdateProfileMutation } from "@/redux/feature/user/user.api";
 import { useApplyAgentMutation } from "@/redux/feature/agent/agent.api";
+import { useNavigate } from "react-router";
+
 
 const updateSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -77,6 +79,14 @@ const updateSchema = z.object({
 type UpdateFormData = z.infer<typeof updateSchema>;
 
 export default function Profile() {
+  const navigate = useNavigate();
+  const [restartDialogOpen, setRestartDialogOpen] = useState(false);
+
+  const handleRestartTour = () => {
+    localStorage.removeItem("tourSeen"); 
+    setRestartDialogOpen(false);
+    navigate("/"); 
+  };
   const [open, setOpen] = useState(false)
   const { data, isLoading } = useUserInfoQuery(undefined);
   const [updateUser] = useUpdateProfileMutation();
@@ -99,6 +109,7 @@ export default function Profile() {
     const toastId = toast.loading("Processing...");
     try {
       const validatePasswordReq = await validatePassword({ password: values.password })
+      console.log(validatePassword)
       if (validatePasswordReq?.data?.success) {
         try {
           await updateUser({ name: values?.name, phone: values?.phone, password: values?.newPassword }).unwrap();
@@ -166,9 +177,27 @@ export default function Profile() {
             </p>
           </div>
         </div>
-        <Button variant="outline" size="icon">
+        <Button onClick={() => setRestartDialogOpen(true)} variant="outline" size="icon">
           <Settings size={20} />
         </Button>
+
+
+        <Dialog open={restartDialogOpen} onOpenChange={setRestartDialogOpen}>
+          <DialogContent className="sm:max-w-[400px]">
+            <DialogHeader>
+              <DialogTitle>Restart Tour?</DialogTitle>
+              <DialogDescription>
+                This will restart the site tour from the beginning. Are you sure you want to continue?
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setRestartDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleRestartTour}>Continue</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
 
@@ -189,13 +218,13 @@ export default function Profile() {
             </CardDescription>
           </div>
 
-       
-        {user?.approvalStatus === "PENDING" && (
+
+          {user?.approvalStatus === "PENDING" && (
             <div
               className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-800 dark:text-yellow-200
                 }`}
             >
-              
+
               {user?.role === "ADMIN"
                 ? "Admin"
                 : user?.approvalStatus === "APPROVED"

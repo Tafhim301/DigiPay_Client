@@ -49,7 +49,7 @@ const HeroSection = ({
   description = "DigiPay is a secure and modern digital wallet system designed to simplify money transfers, cash-in, cash-out, and transaction tracking. Built with the latest modern tecnologies for a smooth user experience.",
   buttons = {
     primary: {
-      text: "Get Started",
+      text: "Register Now",
       url: "/register",
     },
     secondary: {
@@ -63,7 +63,7 @@ const HeroSection = ({
   },
 }) => {
   return (
-    <section className="relative rounded-b-2xl px-6 py-20 lg:px-20 lg:py-32 shadow-2xl overflow-hidden">
+    <section id="hero" className="relative rounded-b-2xl px-6 py-20 lg:px-20 lg:py-32 shadow-2xl overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-green-800 via-cyan-900 to-cyan-600 opacity-90 z-0" />
       <div className="absolute inset-0 bg-gray-900/10 z-10" />
 
@@ -98,7 +98,7 @@ const HeroSection = ({
               variants={itemVariants}
             >
               {buttons.primary && (
-                <Button asChild>
+                <Button id="#goToRegister" asChild>
                   <a href={buttons.primary.url}>{buttons.primary.text}</a>
                 </Button>
               )}

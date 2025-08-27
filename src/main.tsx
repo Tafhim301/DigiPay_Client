@@ -8,14 +8,18 @@ import { router } from './routes/index.tsx'
 import { store } from './redux/store.ts'
 import { Toaster } from './components/ui/sonner.tsx'
 
+
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ReduxProvider store={store}>
+
       <ThemeProvider defaultTheme='system'>
         <Toaster />
 
         <RouterProvider router={router} />,
       </ThemeProvider>
+
     </ReduxProvider>
 
   </StrictMode>,
