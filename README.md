@@ -1,4 +1,4 @@
-# 💳 DigiPay Frontend (React + Redux Toolkit + RTK Query)
+# 💳 DigiPay Frontend 
 
 ---
 
@@ -110,42 +110,7 @@ This project emphasizes:
 - Fully responsive UI & light/dark mode support
 - Optimized performance with lazy-loading & skeleton screens
 
----
 
-## **📊 Example Charts & Dashboard Widgets**
-
-```ts
-// Example: Dashboard Wallet Balance Chart
-import { Line } from "react-chartjs-2";
-
-const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-  datasets: [
-    {
-      label: "Wallet Balance",
-      data: [500, 800, 750, 1200, 900],
-      borderColor: "#4f46e5",
-      backgroundColor: "rgba(79, 70, 229, 0.1)",
-      tension: 0.4,
-    },
-  ],
-};
-```
-
----
-
-```tsx
-// Example: Summary Cards
-<Card>
-  <CardHeader>
-    <CardTitle>Total Users</CardTitle>
-  </CardHeader>
-  <CardContent>
-    <p className="text-2xl font-bold">1,245</p>
-    <p className="text-gray-500">Active Users</p>
-  </CardContent>
-</Card>
-```
 ---
 ## **🚀 Getting Started**
 
@@ -175,7 +140,7 @@ VITE_BASE_URL=https://digital-wallet-backend-phi.vercel.app/api/v1
 ```bash
 npm start
 ```
----
+
 ---
 
 ## **📂 Project Structure**
@@ -192,7 +157,7 @@ src/
 └── App.tsx           # App entry point
 ```
  
----
+
 <!-- 
 ## 🎥 Demo
 
@@ -212,6 +177,13 @@ Watch a short demo of DigiPay Frontend in action: -->
 >Professional finish with realistic data
 
 ---
+
+
+
+## 👨‍💻 Live Demo
+
+**Here Is The Live Link Of The Project**  
+[Live Demo](https://digi-pay-eta.vercel.app/)
 
 ---
 
