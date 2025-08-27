@@ -31,6 +31,7 @@ import SkeletonTable from "./Skeletons/TableSkeletons";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface IUserRef {
     _id: string;
@@ -70,9 +71,17 @@ export default function TransactionTable() {
     const [currentPage, setCurrentPage] = useState(1);
     const [limit, setlimit] = useState(10)
     const location = useLocation();
+    const [sortBy, setSortBy] = useState("-createdAt");
+    const [transactionType, setTransactionType] = useState("all")
     const { data: userData, isLoading: userLoading } = useUserInfoQuery(undefined)
     const currentUserId = userData?.data?._id
-    const { data, isLoading } = useOwnTransactionQuery({ page: currentPage, limit });
+    const { data, isLoading } = useOwnTransactionQuery({
+        page: currentPage,
+        limit,
+        ...(transactionType !== 'all' ? { transactionType } : {}),
+
+        sort: sortBy
+    });
     const transactions: ITransaction[] = data?.data?.data || [];
     const { totalPage } = data?.data?.meta || 1
     useEffect(() => {
@@ -83,7 +92,7 @@ export default function TransactionTable() {
 
         else if (location.pathname === "/agent/overview") {
             setlimit(5)
-         
+
         }
 
     }, [location.pathname, limit])
@@ -95,27 +104,42 @@ export default function TransactionTable() {
         return <SkeletonTable />;
     }
 
-    if (transactions.length === 0) {
-        return (
-            <div className="p-4 flex justify-center">
-                <Card className="w-full max-w-2xl text-center p-8">
-                    <CardHeader>
-                        <CardTitle>No Transactions Found</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-gray-500">
-                        It looks like you haven't made any transactions yet.
-                    </CardContent>
-                </Card>
-            </div>
-        );
-    }
+
 
     return (
         <div className="p-4">
             <Card>
                 <CardHeader>
                     <CardTitle>Transaction History</CardTitle>
+                    <Select value={transactionType} onValueChange={(val) => setTransactionType(val)}>
+                        <SelectTrigger className="w-52">
+                            <SelectValue placeholder="Filter by type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Transactions</SelectItem>
+                            <SelectItem value="CASH_IN">Cash In</SelectItem>
+                            <SelectItem value="CASH_OUT">Cash Out</SelectItem>
+                            <SelectItem value="SEND_MONEY">Send Money</SelectItem>
+                            <SelectItem value="WITHDRAW">Withdraw Money</SelectItem>
+                            <SelectItem value="TOP_UP">Top Up</SelectItem>
+                            {userData?.data?.isAgent && <SelectItem value="ADMIN_CASH_IN">Admin Cash In</SelectItem>}
+                        </SelectContent>
+                    </Select>
+                    <Select value={sortBy} onValueChange={(val) => setSortBy(val)}>
+                        <SelectTrigger className="w-52">
+                            <SelectValue placeholder="Sort by" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="-createdAt">Newest</SelectItem>
+                            <SelectItem value="createdAt">Oldest</SelectItem>
+                            <SelectItem value="amount">Amount Asc</SelectItem>
+                            <SelectItem value="-amount">Amount Desc</SelectItem>
+                            <SelectItem value="transactionType">Type A-Z</SelectItem>
+                            <SelectItem value="-transactionType">Type Z-A</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </CardHeader>
+
                 <CardContent>
                     <Table>
                         <TableCaption></TableCaption>
@@ -180,34 +204,51 @@ export default function TransactionTable() {
                             })}
                         </TableBody>
                     </Table>
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious onClick={() => setCurrentPage((prev: number) => prev - 1)}
-
-                                    className={
-                                        currentPage === 1
-                                            ? "pointer-events-none opacity-50"
-                                            : "cursor-pointer"
-                                    } />
-                            </PaginationItem>
-                            {Array.from({ length: totalPage }, (_, idx) => idx + 1
-                            ).map((value) => (< PaginationItem key={value} onClick={() => setCurrentPage(value)}>
-                                <PaginationLink isActive={currentPage === value}>{value}</PaginationLink>
-                            </PaginationItem>))
-                            }
-
-
-                            <PaginationItem>
-                                <PaginationNext onClick={() => setCurrentPage((prev: number) => prev + 1)}
-                                    className={
-                                        currentPage === totalPage
-                                            ? "pointer-events-none opacity-50"
-                                            : "cursor-pointer"
-                                    } />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
+                    {
+                        totalPage !== 1 && (
+                            <Pagination className="mt-6">
+                                <PaginationContent>
+                                    <PaginationItem>
+                                        <PaginationPrevious
+                                            onClick={() =>
+                                                setCurrentPage((prev) => Math.max(1, prev - 1))
+                                            }
+                                            className={
+                                                currentPage === 1
+                                                    ? "pointer-events-none opacity-50"
+                                                    : "cursor-pointer"
+                                            }
+                                        />
+                                    </PaginationItem>
+                                    {Array.from({ length: totalPage }, (_, idx) => idx + 1).map(
+                                        (pageNumber) => (
+                                            <PaginationItem
+                                                key={pageNumber}
+                                                onClick={() => setCurrentPage(pageNumber)}
+                                                className="cursor-pointer"
+                                            >
+                                                <PaginationLink isActive={currentPage === pageNumber}>
+                                                    {pageNumber}
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        )
+                                    )}
+                                    <PaginationItem>
+                                        <PaginationNext
+                                            onClick={() =>
+                                                setCurrentPage((prev) => Math.min(totalPage, prev + 1))
+                                            }
+                                            className={
+                                                currentPage === totalPage
+                                                    ? "pointer-events-none opacity-50"
+                                                    : "cursor-pointer"
+                                            }
+                                        />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
+                        )
+                    }
                 </CardContent>
             </Card>
         </div >

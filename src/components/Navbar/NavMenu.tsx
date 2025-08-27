@@ -12,6 +12,7 @@ import { NavLink, useLocation } from "react-router";
 const navLinks = [
   { name: "Home", path: "/", role: "PUBLIC" },
   { name: "Features", path: "/features", role: "PUBLIC" },
+  { name: "About Us", path: "/about", role: "PUBLIC" },
   { name: "Contact", path: "/contact", role: "PUBLIC" },
   { name: "FAQ", path: "/faq", role: "PUBLIC" },
   { name: "Admin Dashboard", path: "/admin", role: role.ADMIN },

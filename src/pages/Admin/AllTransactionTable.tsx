@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
     Pagination,
+    PaginationContent,
     PaginationItem,
     PaginationLink,
     PaginationNext,
@@ -112,7 +113,7 @@ export default function AllTransactionTable() {
                             <SelectValue placeholder="Filter by type" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Transactions</SelectItem>  
+                            <SelectItem value="all">All Transactions</SelectItem>
                             <SelectItem value="CASH_IN">Cash In</SelectItem>
                             <SelectItem value="CASH_OUT">Cash Out</SelectItem>
                             <SelectItem value="SEND_MONEY">Send Money</SelectItem>
@@ -172,21 +173,51 @@ export default function AllTransactionTable() {
                         </TableBody>
                     </Table>
 
-                    <Pagination className="mt-5  justify-center flex">
-                        <PaginationPrevious
-                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                            className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                        />
-                        {Array.from({ length: totalPage }, (_, idx) => idx + 1).map((page) => (
-                            <PaginationItem key={page} onClick={() => setCurrentPage(page)}>
-                                <PaginationLink className="mx-2" isActive={currentPage === page}> {page} </PaginationLink>
-                            </PaginationItem>
-                        ))}
-                        <PaginationNext
-                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPage))}
-                            className={currentPage === totalPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                        />
-                    </Pagination>
+                    {
+                        totalPage !== 1 && (
+                            <Pagination className="mt-6">
+                                <PaginationContent>
+                                    <PaginationItem>
+                                        <PaginationPrevious
+                                            onClick={() =>
+                                                setCurrentPage((prev) => Math.max(1, prev - 1))
+                                            }
+                                            className={
+                                                currentPage === 1
+                                                    ? "pointer-events-none opacity-50"
+                                                    : "cursor-pointer"
+                                            }
+                                        />
+                                    </PaginationItem>
+                                    {Array.from({ length: totalPage }, (_, idx) => idx + 1).map(
+                                        (pageNumber) => (
+                                            <PaginationItem
+                                                key={pageNumber}
+                                                onClick={() => setCurrentPage(pageNumber)}
+                                                className="cursor-pointer"
+                                            >
+                                                <PaginationLink isActive={currentPage === pageNumber}>
+                                                    {pageNumber}
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        )
+                                    )}
+                                    <PaginationItem>
+                                        <PaginationNext
+                                            onClick={() =>
+                                                setCurrentPage((prev) => Math.min(totalPage, prev + 1))
+                                            }
+                                            className={
+                                                currentPage === totalPage
+                                                    ? "pointer-events-none opacity-50"
+                                                    : "cursor-pointer"
+                                            }
+                                        />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
+                        )
+                    }
                 </CardContent>
             </Card>
         </div>
