@@ -166,21 +166,21 @@ Watch a short demo of DigiPay Frontend in action: -->
 ---
 ## **🎯 Goals & Best Practices**
 
->Modular, reusable components
+- Modular, reusable components
 
->Clean code & folder structure
+- Clean code & folder structure
 
->Responsive & accessible UI
+- Responsive & accessible UI
 
->Optimized for performance & scalability
+- Optimized for performance & scalability
 
->Professional finish with realistic data
+- Professional finish with realistic data
 
 ---
 
 
 
-## 👨‍💻 Live Demo
+## Live Demo
 
 **Here Is The Live Link Of The Project**  
 [Live Demo](https://digi-pay-eta.vercel.app/)
