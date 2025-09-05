@@ -9,7 +9,6 @@ import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/feature/Au
 import { toast } from "sonner";
 import { useAppDispatch } from "@/redux/hook";
 import NavbarSkeleton from "../Skeletons/NavbarSkeleton";
-import HeroSkeleton from "../Skeletons/HeroSkeleton";
 import TourProvider from "../TourProvider";
 
 
@@ -31,7 +30,7 @@ const Navbar = () => {
     return (
       <div>
         <NavbarSkeleton></NavbarSkeleton>
-        <HeroSkeleton></HeroSkeleton>
+   
       </div>
     )
   }

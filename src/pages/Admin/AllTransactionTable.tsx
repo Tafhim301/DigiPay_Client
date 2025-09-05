@@ -157,8 +157,8 @@ export default function AllTransactionTable() {
                                         {getTransactionIcon(tx.transactionType)}
                                         {tx.transactionType.replace(/_/g, " ")}
                                     </TableCell>
-                                    <TableCell>{tx.sender?.name || "Admin"}</TableCell>
-                                    <TableCell>{tx.receiver?.name || "Admin"}</TableCell>
+                                    <TableCell>{tx.sender?.name || "User"}</TableCell>
+                                    <TableCell>{tx.receiver?.name || "User"}</TableCell>
                                     <TableCell className="text-right font-bold text-green-600">
                                         {tx.amount.toFixed(2)} ৳
                                     </TableCell>

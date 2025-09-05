@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
       <ThemeProvider defaultTheme='system'>
         <Toaster />
 
-        <RouterProvider router={router} />,
+        <RouterProvider router={router} />
       </ThemeProvider>
 
     </ReduxProvider>

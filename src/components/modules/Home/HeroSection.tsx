@@ -62,12 +62,12 @@ const HeroSection = ({
   },
 }) => {
   return (
-    <section id="hero" className="relative rounded-b-2xl px-6 py-20 lg:px-20 lg:py-32 shadow-2xl overflow-hidden">
+    <section className="relative rounded-b-2xl px-6 py-20 lg:px-20 lg:py-15 shadow-2xl overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-green-800 via-cyan-900 to-cyan-600 opacity-90 z-0" />
       <div className="absolute inset-0 bg-gray-900/10 z-10" />
 
       <div className="relative container z-20">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="grid items-center gap-12 justify-between w-full lg:grid-cols-2">
           <motion.div
             className="flex flex-col items-center text-center lg:items-start lg:text-left text-white"
             variants={containerVariants}
@@ -112,6 +112,7 @@ const HeroSection = ({
             variants={imageVariants}
             initial="hidden"
             animate="visible"
+            className="justify-end"
           >
             <img
               src={image.src}

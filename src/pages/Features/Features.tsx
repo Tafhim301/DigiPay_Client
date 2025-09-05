@@ -59,8 +59,8 @@ export default function FeaturesPage() {
   ]
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 py-16 rounded-b-3xl">
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div className=" bg-gray-50 dark:bg-gray-900 py-16 rounded-b-3xl">
+      <div className="container mx-auto px-6 md:px-20 ">
       
         <div className="text-center mb-14">
           <div className="flex justify-center mb-4">
