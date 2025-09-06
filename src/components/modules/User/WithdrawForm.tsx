@@ -86,7 +86,7 @@ export default function WithdrawMoneyForm() {
   };
 
   return (
-    <div className="max-w-full mx-auto border-t mt-12 p-8 bg-card rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl">
+    <div className="max-w-md mx-auto border-t mt-12 p-8 bg-card rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl">
  
       <div className="flex flex-col items-center gap-2 justify-center mb-6">
         <div className="mr-12">

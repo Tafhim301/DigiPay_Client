@@ -66,7 +66,7 @@ const Navbar = () => {
             <Logo />
 
 
-            <NavMenu className="hidden md:block" />
+            <NavMenu className="hidden lg:block" />
           </div>
 
           <div className="flex items-center justify-end gap-3">
@@ -85,12 +85,16 @@ const Navbar = () => {
 
             }
 
+            <div className="hidden md:block">
+                  <ModeToggle />
+            </div>
 
 
-            <ModeToggle />
+
+    
 
 
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <NavigationSheet />
             </div>
           </div>

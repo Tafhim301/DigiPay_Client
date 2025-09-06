@@ -32,7 +32,7 @@ export const NavMenu = (props: NavigationMenuProps) => {
 
           if (link.role === "PUBLIC" || link.role === userRole) {
             return (
-              <NavigationMenuItem id={`nav-${link.name.toLowerCase()}`} className={location.pathname === link.path ? "border bg-muted rounded-lg  px-2" : ""} key={index}>
+              <NavigationMenuItem id={`nav-${link.name.toLowerCase()}`} className={location.pathname === link.path ? "border bg-muted rounded-lg px-2" : ""} key={index}>
                 <NavigationMenuLink asChild className="py-1.5">
                   <NavLink to={link.path}>{link.name}</NavLink>
                 </NavigationMenuLink>

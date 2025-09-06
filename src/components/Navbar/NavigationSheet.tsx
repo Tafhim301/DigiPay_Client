@@ -3,6 +3,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { NavMenu } from "./NavMenu";
 import { Logo } from "@/assets/Logo";
+import { ModeToggle } from "../ModeToggler";
 
 export const NavigationSheet = () => {
   return (
@@ -13,8 +14,13 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent>
+        <div className="w-full flex items-center gap-5 md:justify-between pr-10 bg-muted justify-self-start p-2 border">
         <Logo />
-        <NavMenu orientation="vertical" className="mt-12 mx-2" />
+          <ModeToggle></ModeToggle>
+        </div>
+        <NavMenu orientation="vertical" className="mx-2" />
+
+
       </SheetContent>
     </Sheet>
   );

@@ -3,6 +3,7 @@ import img from "@/assets/Images/homePageImage.jpg";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/assets/Logo";
 import { motion, type Variants } from "framer-motion";
+import { Link } from "react-router";
 
 
 const containerVariants: Variants = {
@@ -99,10 +100,10 @@ const HeroSection = ({
               
               {buttons.secondary && (
                 <Button asChild>
-                  <a href={buttons.secondary.url}>
+                  <Link to={buttons.secondary.url}>
                     {buttons.secondary.text}
                     <ArrowRight className="ml-2 size-4" />
-                  </a>
+                  </Link>
                 </Button>
               )}
             </motion.div>

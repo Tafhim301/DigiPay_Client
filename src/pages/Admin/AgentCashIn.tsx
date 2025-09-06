@@ -65,7 +65,7 @@ export default function AgentCashIn() {
       }).unwrap();
 
       if (passwordValidation.success) {
-        const res = await AgentCashIn({receiver : data.receiver, amount: data.amount }).unwrap();
+        const res = await AgentCashIn({ receiver: data.receiver, amount: data.amount }).unwrap();
         console.log(res);
 
         dispatch(satsApi.util.resetApiState());
@@ -89,39 +89,48 @@ export default function AgentCashIn() {
   };
 
   return (
-    <div className="max-w-md mx-auto border-t mt-12 p-8 bg-card rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl">
-      <div className="flex flex-col items-center gap-2 justify-center mb-6">
-        <div className="mr-12">
-          <Logo></Logo>
-        </div>
-        <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
-          Cash In Agent
-        </h1>
-        <p className="text-center text-muted-foreground mt-2">
-         Cash In to an agent account. Let the cash flow around!
+    <div className="grid lg:grid-cols-2 items-center bg-muted dark:bg-gray-900 gap-12 lg:gap-16">
+
+      <div className="flex flex-col items-start justify-center px-6 lg:px-12 lg:h-screen mb-10 lg:mb-0">
+        <Logo />
+        <h2 className="text-4xl font-extrabold mt-6 mb-4">Cash In To Agent</h2>
+        <p className="text-muted-foreground max-w-md leading-relaxed">
+          Cash in to an agent account. Let the cash flow smoothly and securely around!
         </p>
+        <div className="bg-primary/10 text-primary p-4 rounded-xl shadow-sm">
+          <p className="font-medium">
+            Remember: Always verify the agent’s phone number before cashing in!
+          </p>
+        </div>
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-              control={form.control}
-              name="receiver"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter Agent Phone Number" type="tel" {...field} />
 
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
+      <div className="max-w-md max-h-min mx-auto border border-primary/40 mt-12 lg:mt-0 p-8 bg-card rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl">
+        <div className="flex flex-col items-center gap-2 justify-center mb-6">
+          <Logo />
+          <h1 className="text-3xl font-extrabold text-center px-20 pb-2 mb-2 border-b-2 border-primary/50">
+            Cash In Agent
+          </h1>
+          <p className="text-center text-muted-foreground mt-2">
+            Cash In to an agent account. Let the cash flow around!
+          </p>
+        </div>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Phone */}
+            <FormField control={form.control} name="receiver" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter Agent Phone Number" type="tel" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+
+            {/* Amount */}
+            <FormField control={form.control} name="amount" render={({ field }) => (
               <FormItem>
                 <FormLabel>Amount</FormLabel>
                 <FormControl>
@@ -129,7 +138,6 @@ export default function AgentCashIn() {
                     placeholder="Enter Amount"
                     type="number"
                     {...field}
-
                     onChange={(e) => {
                       const value = e.target.value === "" ? undefined : Number(e.target.value);
                       field.onChange(value);
@@ -139,12 +147,10 @@ export default function AgentCashIn() {
                 </FormControl>
                 <FormMessage />
               </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
+            )} />
+
+            {/* Password */}
+            <FormField control={form.control} name="password" render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
@@ -152,24 +158,26 @@ export default function AgentCashIn() {
                 </FormControl>
                 <FormMessage />
               </FormItem>
-            )}
-          />
-          <Button
-            className="w-full text-white bg-primary hover:bg-primary/90 transition-colors duration-200"
-            disabled={topUpLoading}
-            type="submit"
-          >
-            {topUpLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Processing...
-              </>
-            ) : (
-              "Submit"
-            )}
-          </Button>
-        </form>
-      </Form>
+            )} />
+
+            {/* Submit */}
+            <Button
+              className="w-full text-white bg-primary hover:bg-primary/90 transition-colors duration-200"
+              disabled={topUpLoading}
+              type="submit"
+            >
+              {topUpLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }
