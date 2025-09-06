@@ -14,7 +14,7 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent>
-        <div className="w-full flex items-center gap-5 md:justify-between pr-10 bg-muted justify-self-start p-2 border">
+        <div className="w-full flex items-center gap-5 justify-between pr-10 bg-muted justify-self-start p-2 border">
         <Logo />
           <ModeToggle></ModeToggle>
         </div>

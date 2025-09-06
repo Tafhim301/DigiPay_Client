@@ -91,9 +91,9 @@ export default function SendMoney() {
           </p>
         </div>
 
-        {/* Right Pane: Balance + Form */}
+    
         <div>
-          {/* Balance Card */}
+    
           <Card className="mb-8 border-border/40">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -113,7 +113,7 @@ export default function SendMoney() {
             </CardContent>
           </Card>
 
-          {/* Send Money Form */}
+       
           <section className="bg-card rounded-2xl shadow-lg p-8 border border-border/40">
             <div className="flex flex-col gap-4 items-center mb-6">
               <Logo />

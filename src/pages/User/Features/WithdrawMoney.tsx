@@ -44,7 +44,7 @@ export default function WithdrawPage() {
             </CardContent>
           </Card>
 
-          {/* Tabs */}
+  
           <Tabs defaultValue="cashout" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-4">
               <TabsTrigger value="cashout">Cash-out</TabsTrigger>

@@ -1,5 +1,6 @@
 import HeroSection from "@/components/modules/Home/HeroSection";
-import FeaturesPage from "../Features/Features";
+import HomePageFeaturesSection from "@/components/modules/Home/HomePageFeatures";
+
 
 
 
@@ -7,14 +8,12 @@ import FeaturesPage from "../Features/Features";
 
 export default function Home() {
   return (
-    <div>
-      <div className="w-full">
+    <div className="grid space-y-20">
+      
 
         <HeroSection />
-      </div>
-      <div className="mt-20">
-        <FeaturesPage></FeaturesPage>
-      </div>
+
+        <HomePageFeaturesSection />
     </div>
   );
 }
