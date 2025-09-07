@@ -30,7 +30,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+
 } from "@/components/ui/dialog";
 
 import { Input } from "@/components/ui/input";
@@ -305,11 +305,28 @@ export default function Profile() {
 
         <div className="flex justify-center p-6">
           <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button onClick={() => setOpen(true)} className="w-full h-10 bg-gradient-to-r from-blue-600  to-indigo-800 text-white hover:opacity-90">
+           
+              <Button 
+                onClick={() => {
+
+                  if (
+                    user?.phone === "01312345678" || 
+                    user?.phone === "01812121212" || 
+                    user?.phone === "01819191919"    
+                  ) {
+                    setOpen(false)
+                    toast.error("Editing profile is not available with demo login");
+                    return;
+                  }
+                  setOpen(true);
+                }}
+                className="w-full h-10 bg-gradient-to-r from-blue-600  to-indigo-800 text-white hover:opacity-90"
+              >
                 <Edit className="h-5 w-5 mr-2" /> Edit Profile
               </Button>
-            </DialogTrigger>
+       
+
+        
             <DialogContent className="sm:max-w-[500px]">
               <DialogHeader>
                 <DialogTitle>Update Profile</DialogTitle>
@@ -317,8 +334,6 @@ export default function Profile() {
                   Make changes to your profile. You must enter your password to confirm.
                 </DialogDescription>
               </DialogHeader>
-
-
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                   <FormField
@@ -389,6 +404,7 @@ export default function Profile() {
             </DialogContent>
           </Dialog>
         </div>
+
       </Card>
     </div>
   );
