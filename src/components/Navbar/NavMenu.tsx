@@ -8,7 +8,7 @@ import { role } from "@/constant/role";
 import { useUserInfoQuery } from "@/redux/feature/Auth/auth.api";
 import { type NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import { Link, useLocation } from "react-router";
-import { Home, FileText, Info, Phone, HelpCircle, LayoutDashboard, User, Users } from "lucide-react";
+import { Home, FileText, Info, Phone, HelpCircle, LayoutDashboard, User, Users, FileBox } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -17,6 +17,7 @@ const navLinks = [
   { name: "About Us", path: "/about", role: "PUBLIC", icon: <Info className="w-4 h-4" /> },
   { name: "Contact", path: "/contact", role: "PUBLIC", icon: <Phone className="w-4 h-4" /> },
   { name: "FAQ", path: "/faq", role: "PUBLIC", icon: <HelpCircle className="w-4 h-4" /> },
+  { name: "Blogs", path: "/blog", role: "PUBLIC", icon: <FileBox className="w-4 h-4" /> },
   { name: "Admin Dashboard", path: "/admin", role: role.ADMIN, icon: <LayoutDashboard className="w-4 h-4" /> },
   { name: "Dashboard", path: "/user", role: role.USER, icon: <User className="w-4 h-4" /> },
   { name: "Agent Dashboard", path: "/agent", role: role.AGENT, icon: <Users className="w-4 h-4" /> },

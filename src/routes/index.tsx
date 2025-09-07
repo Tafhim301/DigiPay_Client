@@ -19,6 +19,10 @@ import FAQPage from "@/pages/Faq/FAQ";
 import FeaturesPage from "@/pages/Features/Features";
 import ContactPage from "@/pages/Contact/ContactPage";
 import AboutPage from "@/pages/About/About";
+import HowToUseDigiPaySafely from "@/pages/Blogs/HowToUseDigiPaySafely";
+import WhyDigitalPaymentsMatter from "@/pages/Blogs/WhyDigitalPaymentsMatter";
+import FutureOfCashless from "@/pages/Blogs/FutureOfCashless";
+import BlogSection from "@/pages/Blogs/BlogSection";
 
 
 export const router = createBrowserRouter([
@@ -58,7 +62,24 @@ export const router = createBrowserRouter([
         path : '/about',
         Component : AboutPage
 
+      },
+      {
+        path : '/blog/how-to-use-digipay-safely',
+        Component : HowToUseDigiPaySafely
+      },
+      {
+        path : '/blog/why-digital-payments-matter',
+        Component : WhyDigitalPaymentsMatter
+      },
+      {
+        path : '/blog/future-of-cashless-transactions',
+        Component : FutureOfCashless
+      },
+      {
+        path : '/blog',
+        Component : BlogSection
       }
+     
 
 
     ]
