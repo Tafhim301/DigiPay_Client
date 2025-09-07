@@ -23,6 +23,7 @@ import HowToUseDigiPaySafely from "@/pages/Blogs/HowToUseDigiPaySafely";
 import WhyDigitalPaymentsMatter from "@/pages/Blogs/WhyDigitalPaymentsMatter";
 import FutureOfCashless from "@/pages/Blogs/FutureOfCashless";
 import BlogSection from "@/pages/Blogs/BlogSection";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
 
 export const router = createBrowserRouter([
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
       {
         path : '/blog',
         Component : BlogSection
+      },
+      {
+        path : '/privacy-policy',
+        Component : PrivacyPolicy
       }
      
 

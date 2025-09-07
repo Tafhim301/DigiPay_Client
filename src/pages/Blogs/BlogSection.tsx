@@ -48,7 +48,7 @@ export default function BlogSection() {
         transition={{ duration: 0.7 }}
         className="text-4xl font-bold mb-6 text-foreground"
       >
-        📰 Resources & Insights
+       Resources & Insights
       </motion.h2>
       <motion.p
         initial={{ opacity: 0 }}

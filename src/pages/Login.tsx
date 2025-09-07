@@ -18,7 +18,7 @@ export default function Login() {
         <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/20 to-transparent" />
 
 
-        <div className="absolute top-3 left-3 text-white z-10">
+        <div className="absolute  top-3 left-3 text-white z-10">
           <Logo />
           <p className="mt-2 text-sm text-gray-200 max-w-xs drop-shadow-lg">
             Seamless, secure, and fast — manage your money with DigiPay.

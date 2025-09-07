@@ -1,9 +1,10 @@
 import { Logo } from "@/assets/Logo"
+import { Link } from "react-router"
 
 export default function Footer() {
   return (
     <footer className="mt-20 border-t-2 border-gray-200 dark:border-gray-700">
-      <div className="mx-auto container px-8 pt-6 pb-6">
+      <div className="px-4 sm:px-6 lg:px-8 py-5">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           
           <div>
@@ -15,10 +16,9 @@ export default function Footer() {
             </p>
       
             <ul className="mt-8 flex gap-6">
-          
               <li>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/tafhim.ul.101"
                   rel="noreferrer"
                   target="_blank"
                   className="text-gray-700 transition hover:opacity-75"
@@ -33,10 +33,10 @@ export default function Footer() {
                   </svg>
                 </a>
               </li>
-              {/* Instagram */}
+
               <li>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/taf_him_ul"
                   rel="noreferrer"
                   target="_blank"
                   className="text-gray-700 transition hover:opacity-75"
@@ -59,44 +59,44 @@ export default function Footer() {
             <div>
               <p className="font-medium text-muted-foreground">Features</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Send & Receive Money</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Cash-In / Cash-Out</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Wallet Management</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Transaction History</a></li>
+                <li><Link to="/features" className="text-gray-700 hover:opacity-75">Send & Receive Money</Link></li>
+                <li><Link to="/features" className="text-gray-700 hover:opacity-75">Cash-In / Cash-Out</Link></li>
+                <li><Link to="/features" className="text-gray-700 hover:opacity-75">Wallet Management</Link></li>
+                <li><Link to="/features" className="text-gray-700 hover:opacity-75">Transaction History</Link></li>
               </ul>
             </div>
 
             <div>
               <p className="font-medium text-muted-foreground">Company</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75">About Us</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Careers</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Blog</a></li>
+                <li><a href="/about" className="text-gray-700 hover:opacity-75">About Us</a></li>
+                <li><a href="/contact" className="text-gray-700 hover:opacity-75">Contact</a></li>
+                <li><a href="/blog" className="text-gray-700 hover:opacity-75">Blog</a></li>
               </ul>
             </div>
 
             <div>
               <p className="font-medium text-muted-foreground">Support</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Contact</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">FAQs</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Live Chat</a></li>
+                <li><a href="/contact" className="text-gray-700 hover:opacity-75">Contact</a></li>
+                <li><a href="/faqs" className="text-gray-700 hover:opacity-75">FAQs</a></li>
+                <li><a href="/#" className="text-gray-700 hover:opacity-75">Live Chat</a></li>
               </ul>
             </div>
 
             <div>
               <p className="font-medium text-muted-foreground">Legal</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Privacy Policy</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Terms of Service</a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75">Refund Policy</a></li>
+                <li><a href="/privacy-policy" className="text-gray-700 hover:opacity-75">Privacy Policy</a></li>
+                <li><a href="/terms-of-service" className="text-gray-700 hover:opacity-75">Terms of Service</a></li>
+                <li><a href="/refund-policy" className="text-gray-700 hover:opacity-75">Refund Policy</a></li>
               </ul>
             </div>
           </div>
         </div>
 
         <p className="text-xs text-muted-foreground mt-6 text-center">
-          &copy; {new Date().getFullYear()}. Digital Wallet. All rights reserved.
+          &copy; {new Date().getFullYear()}. DigiPay. All rights reserved.
         </p>
       </div>
     </footer>

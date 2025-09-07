@@ -60,8 +60,8 @@ const Navbar = () => {
   return (
 
     <div id="navbar" className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md shadow-md">
-      <nav className="h-16 bg-background border-b">
-        <div className="h-full flex items-center justify-between  px-4 sm:px-6 lg:px-8">
+      <nav className="h-16  bg-background border-b">
+        <div className="h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-8">
             <Logo />
 

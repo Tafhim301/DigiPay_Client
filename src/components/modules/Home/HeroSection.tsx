@@ -63,7 +63,7 @@ const HeroSection = ({
   },
 }) => {
   return (
-    <section className="relative rounded-b-2xl px-6 py-20 lg:px-20 lg:py-15 shadow-2xl overflow-hidden">
+    <section className="relative lg:rounded-b-2xl px-6 py-20 lg:px-20 lg:py-15 shadow-2xl overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-green-800 via-cyan-900 to-cyan-600 opacity-90 z-0" />
       <div className="absolute inset-0 bg-gray-900/10 z-10" />
 

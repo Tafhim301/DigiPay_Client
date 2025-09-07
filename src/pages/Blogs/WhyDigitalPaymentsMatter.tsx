@@ -33,7 +33,7 @@ export default function WhyDigitalPaymentsMatter() {
         transition={{ duration: 0.7 }}
         className="text-4xl font-bold text-foreground mb-6"
       >
-        Why Digital Payments Matter in Bangladesh 🌍
+        Why Digital Payments Matter in Bangladesh 
       </motion.h1>
 
       <p className="text-lg text-muted-foreground leading-relaxed">

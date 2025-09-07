@@ -40,7 +40,7 @@ function AboutIntro() {
   );
 }
 
-function OurStory() {
+export function OurStory() {
   return (
     <motion.div
       initial={{ opacity: 0, x: -50 }}
@@ -67,7 +67,7 @@ function OurStory() {
 }
 
 
-function OurMission() {
+export function OurMission() {
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -172,11 +172,11 @@ function Testimonials() {
 }
 
 
-function CallToAction() {
+export function CallToAction() {
   const { data , isLoading} = useUserInfoQuery(undefined);
   const userRole = data?.data?.role;
   return (
-    <div className="bg-gradient-to-br bg-slate-100 from-background to-popover text-center dark:text-primary-foreground py-16 px-6 rounded-2xl shadow-lg">
+    <div className=" text-center dark:text-primary-foreground py-16 px-6 rounded-2xl shadow">
       <h2 className="text-4xl font-bold mb-4">Ready to Experience DigiPay?</h2>
       <p className="mb-6 text-lg">Join thousands of users already enjoying fast, secure, and effortless digital transactions.</p>
       {
@@ -194,7 +194,7 @@ function CallToAction() {
 
 
 
-function CoreValues() {
+export function CoreValues() {
   const values = [
     {
       title: "Security First",
